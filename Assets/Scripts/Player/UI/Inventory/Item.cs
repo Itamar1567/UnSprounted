@@ -16,8 +16,6 @@ public class Item : ScriptableObject
     [SerializeField] int healAmount;
     [SerializeField] int damageAmount;
     [SerializeField] int itemMineLevel;
-    [SerializeField] float timeToBreak;
-    [SerializeField] float timeBetweenAttack;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,16 +52,6 @@ public class Item : ScriptableObject
     public int GetMineLevel()
     {
         return itemMineLevel;
-    }
-
-    public float GetTimeToBreak()
-    {
-        return timeToBreak;
-    }
-
-    public float TimeBetweenAttacks()
-    {
-        return timeBetweenAttack;
     }
 
 }

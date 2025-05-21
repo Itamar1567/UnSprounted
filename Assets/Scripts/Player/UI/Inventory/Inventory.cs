@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -53,7 +54,7 @@ public class Inventory : MonoBehaviour
       
         if (carriedItem == null) return;
 
-        carriedItem.transform.position = Input.mousePosition;
+        carriedItem.transform.position = Mouse.current.position.ReadValue();
     }
 
     public void SetCarriedItem(InventoryItem item)

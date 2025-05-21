@@ -45,8 +45,6 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         healAmount = item.GetHealAmount();
         damageAmount = item.GetDamageAccount();
         itemMineLevel = item.GetMineLevel();
-        timeToBreak = item.GetTimeToBreak();
-        timeBetweenAttack = item.TimeBetweenAttacks();
         block = item.block;
         interactable = item.interactable;
     }
