@@ -6,20 +6,36 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
 
-    
-    private Rigidbody2D rb;
     private Vector2 moveDirection;
-    private PlayerInput action;
+    private Vector2 lastMoveDirection;
+    private Rigidbody2D rb;
+    [SerializeField] private int speed = 5;
+    [SerializeField] private InputActionReference movementAction;
+    [SerializeField] private Animator animator;
+
     
     // Start is called before the first frame update
     void Start()
     {
+        
+        moveDirection = movementAction.action.ReadValue<Vector2>();
         rb = GetComponent<Rigidbody2D>();    
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveDirection = action.;
+        //This sets the idle blend tree values as the player's last inputed direction
+        if (moveDirection != Vector2.zero)
+        {
+            lastMoveDirection = moveDirection;
+            animator.SetFloat("SavedX", lastMoveDirection.x);
+            animator.SetFloat("SavedY", lastMoveDirection.y);
+        }
+        moveDirection = movementAction.action.ReadValue<Vector2>();
+        rb.linearVelocity = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
+        animator.SetFloat("XInput", moveDirection.x);
+        animator.SetFloat("YInput", moveDirection.y);
+        
     }
 }
