@@ -20,52 +20,47 @@ public class Crafting : MonoBehaviour
     [SerializeField] private InventorySlot resaultingSlotInvTbl;
     [SerializeField] private InventorySlot resaultingSlotCrftTbl;
     [SerializeField] private InventoryItem itemPrefab;
-    private bool isCraftingtable = false;
+    private GameObject craftedItemReference;
     private GameObject[] slotsReference;
+    private InventorySlot resualtSlotUsed;
     private List<Recipes> RecipeList = new List<Recipes>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
     {
-        if(Singleton == null)
+        if (Singleton == null)
         {
             Singleton = this;
         }
     }
     void Start()
     {
-        RecipeList.Add(new Recipes{ itemId = 2, itemName = "Crafting Table", ingredients = "loglogloglog" });
+        RecipeList.Add(new Recipes { itemId = 2, itemName = "Crafting Table", ingredients = "loglogloglog" });
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SpawnItemInResaultingSlot(int craftedItemId)
     {
         Item item;
         item = Inventory.Singleton.items[craftedItemId];
-        if(isCraftingtable == false)
-        {
-            Instantiate(itemPrefab, resaultingSlotInvTbl.transform).Initialize(item, resaultingSlotInvTbl);
-        }
-        if (isCraftingtable == true)
-        {
-            Instantiate(itemPrefab, resaultingSlotCrftTbl.transform).Initialize(item, resaultingSlotCrftTbl);
-        }
+        Instantiate(itemPrefab, resualtSlotUsed.transform).Initialize(item, resualtSlotUsed);
     }
 
     public bool CraftItem(string craftingSlotsRslt)
     {
-        for(int i = 0; i < RecipeList.Count; i++)
+        for (int i = 0; i < RecipeList.Count; i++)
         {
-            if(craftingSlotsRslt == RecipeList[i].ingredients)
+            if (craftingSlotsRslt == RecipeList[i].ingredients)
             {
                 Debug.Log("Crafted");
                 SpawnItemInResaultingSlot(RecipeList[i].itemId);
+                AddButtonComponent();
                 return true;
             }
         }
@@ -79,7 +74,7 @@ public class Crafting : MonoBehaviour
         //using await so Unity registers that an item is in a slot, so as to not skip a newly added item
         await Task.Delay(1);
         string itemInSlots = "";
-        foreach(GameObject item in slots) 
+        foreach (GameObject item in slots)
         {
 
             if (item.transform.childCount > 0)
@@ -87,14 +82,14 @@ public class Crafting : MonoBehaviour
                 //Getting child 0 due to slots hosting items as their first child
                 itemInSlots += item.transform.GetChild(0).GetComponent<InventoryItem>().itemName;
             }
-        
+
         }
-        
-        switch(craftingSystem)
+
+        switch (craftingSystem)
         {
             //Checks what crafting system the player is using in order to decide which resaulting slot to place the crafted item
-            case 4: isCraftingtable = false; break;
-                case 9: isCraftingtable = true; break;
+            case 4: resualtSlotUsed = resaultingSlotInvTbl; break;
+            case 9: resualtSlotUsed = resaultingSlotCrftTbl; break;
         }
 
         itemInSlots = itemInSlots.ToLower();
@@ -102,7 +97,7 @@ public class Crafting : MonoBehaviour
         slotsReference = slots;
 
         if (CraftItem(itemInSlots))
-        { 
+        {
             //DestroyItemsInSlots(slots); 
         }
     }
@@ -116,6 +111,29 @@ public class Crafting : MonoBehaviour
                 Destroy(slot.transform.GetChild(0).gameObject);
             }
         }
+    }
+    //This function adds a button to the crafted item so as to confirm the player accually wants that item crafted
+    private void AddButtonComponent()
+    {
+        //Child 0 due to it being the item in the slot
+        craftedItemReference = resualtSlotUsed.transform.GetChild(0).gameObject;
+        craftedItemReference.AddComponent<Button>();
+        craftedItemReference.GetComponent<Button>().onClick.AddListener(ConfirmCraftedItem);
+    }
+    //This function removes the button once the player clicks the crafted item("Confirms that they want it)
+    private void RemoveButtonComponent()
+    {
+        if (craftedItemReference.GetComponent<Button>())
+        {
+            Destroy(craftedItemReference.GetComponent<Button>());
+        }
+    }
+    private void ConfirmCraftedItem()
+    {
+        DestroyItemsInSlots();
+        RemoveButtonComponent();
+        //Extra protection as to not keep the reference "dangaling"
+        craftedItemReference = null;
     }
 
 }
