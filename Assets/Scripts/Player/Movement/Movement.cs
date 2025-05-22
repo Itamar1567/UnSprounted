@@ -25,17 +25,21 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //This sets the idle blend tree values as the player's last inputed direction
-        if (moveDirection != Vector2.zero)
+        if (UIControl.Singleton.GetGameState() == false)
         {
-            lastMoveDirection = moveDirection;
-            animator.SetFloat("SavedX", lastMoveDirection.x);
-            animator.SetFloat("SavedY", lastMoveDirection.y);
-        }
-        moveDirection = movementAction.action.ReadValue<Vector2>();
-        rb.linearVelocity = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
-        animator.SetFloat("XInput", moveDirection.x);
-        animator.SetFloat("YInput", moveDirection.y);
-        
+
+            moveDirection = movementAction.action.ReadValue<Vector2>();
+            rb.linearVelocity = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
+
+            //This sets the idle blend tree values as the player's last inputed direction
+            if (moveDirection != Vector2.zero)
+            {
+                lastMoveDirection = moveDirection;
+                animator.SetFloat("SavedX", lastMoveDirection.x);
+                animator.SetFloat("SavedY", lastMoveDirection.y);
+            }           
+            animator.SetFloat("XInput", moveDirection.x);
+            animator.SetFloat("YInput", moveDirection.y);
+        }        
     }
 }

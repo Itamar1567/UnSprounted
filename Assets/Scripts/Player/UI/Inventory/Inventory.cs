@@ -34,16 +34,11 @@ public class Inventory : MonoBehaviour
     void Awake()
     {
 
-        
-         if (Singleton == null)
-         {
-              Singleton = this;
-              DontDestroyOnLoad(gameObject);
-         }
-         else
-         {
-              Destroy(gameObject);
-         }
+
+        if (Singleton == null)
+        {
+            Singleton = this;
+        }
 
         positionOnHotBar = 0;
         //giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(500); });
