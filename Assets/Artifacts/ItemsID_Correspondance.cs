@@ -12,7 +12,7 @@ public class ItemsID_Correspondance
 /*
  * 0: Log
  * 1: Rock
- * 
+ * 2: Crafting Table
  * 
  * 
  * 
