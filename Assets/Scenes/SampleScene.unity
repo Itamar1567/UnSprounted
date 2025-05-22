@@ -1949,8 +1949,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  dropAmountRange: {x: 0, y: 0}
-  droppedItems: []
+  dropAmountRange: {x: 1, y: 5}
+  droppedItems:
+  - {fileID: 7657035319987991058, guid: 49174138ec75b754dbc31e713a3def72, type: 3}
 --- !u!95 &172044353
 Animator:
   serializedVersion: 7

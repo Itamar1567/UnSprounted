@@ -26,7 +26,8 @@ public class Resource : MonoBehaviour, Damageable
 
     public void Die()
     {
-
+        DropItems();
+        Destroy(gameObject);
     }
 
     public void TakeDamage(int damage)
@@ -47,11 +48,11 @@ public class Resource : MonoBehaviour, Damageable
         int randomiser = Random.Range((int)dropAmountRange.x,(int)dropAmountRange.y);
         for(int i = 0; i <= randomiser; i++)
         {
-            GameObject item_1 = Instantiate(droppedItems[j]);
+            GameObject item_1 = Instantiate(droppedItems[j],transform.position, Quaternion.identity);
             if (droppedItems.Length > 1 && i == 3)
             {
                 j++;
-                GameObject item_2 = Instantiate(droppedItems[j]);
+                GameObject item_2 = Instantiate(droppedItems[j], transform.position, Quaternion.identity);
             }
             if(j > droppedItems.Length)
             {
