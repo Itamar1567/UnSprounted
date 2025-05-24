@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class UIControl : MonoBehaviour
     public static UIControl Singleton;
     private bool isGamePaused = false;
     [SerializeField] private GameObject[] windows;
-    
+    [SerializeField] private Slider healthBar;
+
+
 
 
     void Awake()
@@ -32,7 +35,7 @@ public class UIControl : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -110,7 +113,19 @@ public class UIControl : MonoBehaviour
         Debug.Log(window.name);
     }
 
+    #region Player Health
+
+    public void UpdateHealthBar (int health)
+    {
+        healthBar.value = health;
+    }
+    public void UpdateHealthBarMaxValue(int maxHealth)
+    {
+        healthBar.maxValue = maxHealth;
+    }
+
+    #endregion
 
 }
 
-    
+
