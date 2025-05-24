@@ -42,12 +42,13 @@ public class UIControl : MonoBehaviour
         {
             OpenWidow(0);
         }
+
     }
 
     //This function returns true of the game is paused and false if not
     public bool GetGameState()
     {
-        Debug.Log(isGamePaused);
+        //Debug.Log(isGamePaused);
         return isGamePaused;
     }
 

@@ -82,6 +82,10 @@ public class Crafting : MonoBehaviour
                 //Getting child 0 due to slots hosting items as their first child
                 itemInSlots += item.transform.GetChild(0).GetComponent<InventoryItem>().itemName;
             }
+            else
+            {
+                itemInSlots += "null";
+            }
 
         }
 
