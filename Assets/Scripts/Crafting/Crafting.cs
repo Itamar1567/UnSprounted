@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 public class Crafting : MonoBehaviour
@@ -20,6 +20,7 @@ public class Crafting : MonoBehaviour
     [SerializeField] private InventorySlot resaultingSlotInvTbl;
     [SerializeField] private InventorySlot resaultingSlotCrftTbl;
     [SerializeField] private InventoryItem itemPrefab;
+    private string currentItemsInSlots;
     private GameObject craftedItemReference;
     private GameObject[] slotsReference;
     private InventorySlot resualtSlotUsed;
@@ -54,17 +55,22 @@ public class Crafting : MonoBehaviour
 
     public bool CraftItem(string craftingSlotsRslt)
     {
+
         for (int i = 0; i < RecipeList.Count; i++)
         {
             if (craftingSlotsRslt == RecipeList[i].ingredients)
             {
                 Debug.Log("Crafted");
+                //This will destroy the item in the resault slot, if item already existed in the resault slot but player changed the recipe and another item is to be placed in the resault slot
+                DestroyItemInResaultSlot();
                 SpawnItemInResaultingSlot(RecipeList[i].itemId);
                 AddButtonComponent();
                 return true;
             }
         }
+        //Destroy the spawned craft item if the player changes the items in the slots
 
+        DestroyItemInResaultSlot();
         return false;
     }
 
@@ -99,7 +105,7 @@ public class Crafting : MonoBehaviour
         itemInSlots = itemInSlots.ToLower();
         Debug.Log(itemInSlots);
         slotsReference = slots;
-
+        currentItemsInSlots = itemInSlots;
         if (CraftItem(itemInSlots))
         {
             //DestroyItemsInSlots(slots); 
@@ -138,6 +144,19 @@ public class Crafting : MonoBehaviour
         RemoveButtonComponent();
         //Extra protection as to not keep the reference "dangaling"
         craftedItemReference = null;
+    }
+
+    private void DestroyItemInResaultSlot()
+    {
+        if (resualtSlotUsed.transform.childCount > 0)
+        {
+            Destroy(resualtSlotUsed.transform.GetChild(0).gameObject);
+        }
+    }
+
+    //This function checks if the item in slot has been taken out or placed in 
+    private void haveSlotsChanged()
+    {
     }
 
 }
