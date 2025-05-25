@@ -3706,7 +3706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTime: 1
-  damage: 100
+  damage: 15
   health: 100
 --- !u!212 &686613599
 SpriteRenderer:

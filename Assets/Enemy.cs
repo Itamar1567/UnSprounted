@@ -5,39 +5,17 @@ using UnityEngine.Rendering;
 
 public class Enemy : MonoBehaviour, Damageable
 {
-
+    public bool hasTakenDamage { get; set; }
     [SerializeField] private int attackTime = 1;
     [SerializeField] private int damage = 15;
     [SerializeField] private int health = 100;
     private bool canAttack = true;
     private Animator animator;
     private AIDestinationSetter destinationSetter;
+    private GameObject playerRef;
     private IAstarAI ai;
-    public bool hasTakenDamage { get; set;}
 
-    public void Die()
-    {
-        animator.SetBool("Die", true);
-        Destroy(gameObject);
-    }
-
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if(health <= 0)
-        {
-            health = 0;
-            Die();
-        }
-    }
-
-    public void Attack()
-    {
-        canAttack = false;
-        Debug.Log("Attacking");
-        StartCoroutine(AttackTimer());
-
-    }
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,6 +25,7 @@ public class Enemy : MonoBehaviour, Damageable
         destinationSetter = GetComponent<AIDestinationSetter>();
         animator = GetComponent<Animator>();
         destinationSetter.target = GameObject.FindGameObjectWithTag("Player").transform;
+        playerRef = destinationSetter.target.gameObject;
     }
 
     // Update is called once per frame
@@ -64,6 +43,31 @@ public class Enemy : MonoBehaviour, Damageable
         {
             animator.SetBool("Walk", false);
         }
+    }
+
+    public void Die()
+    {
+        animator.SetBool("Die", true);
+        Destroy(gameObject);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+        }
+    }
+
+    public void Attack()
+    {
+        canAttack = false;
+        Debug.Log("Attacking");
+        playerRef.GetComponent<Health>().TakeDamage(damage);
+        StartCoroutine(AttackTimer());
+
     }
 
     private IEnumerator AttackTimer()
