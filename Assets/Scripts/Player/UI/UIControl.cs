@@ -1,7 +1,3 @@
-using System.Runtime.CompilerServices;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -13,6 +9,8 @@ public class UIControl : MonoBehaviour
     private bool isGamePaused = false;
     [SerializeField] private GameObject[] windows;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private Transform inventorySlots;
+
 
 
 
@@ -41,9 +39,13 @@ public class UIControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(Keyboard.current.iKey.wasPressedThisFrame)
+        if (Keyboard.current.iKey.wasPressedThisFrame)
         {
             OpenWidow(0);
+        }
+        if (Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            OpenWidow(1);
         }
 
     }
@@ -73,25 +75,27 @@ public class UIControl : MonoBehaviour
             windows[windowId].SetActive(true);
             CloseAllOtherWindows(windowId);
         }
-       
-        
+
+        ChangeInventorySlotsParent();
+
+
     }
     //This function closes all windows except the window that was just openend
     private void CloseAllOtherWindows(int windowId)
     {
-        for(int i = 0; i < windows.Length; i++) 
-        { 
-            
-            if(i == windowId)
+        for (int i = 0; i < windows.Length; i++)
+        {
+
+            if (i == windowId)
             {
                 continue;
             }
 
             windows[i].SetActive(false);
-        
+
         }
     }
-    
+
     private void CloseAllWindows()
     {
 
@@ -99,10 +103,10 @@ public class UIControl : MonoBehaviour
 
         isGamePaused = false;
 
-        foreach(GameObject window in windows) 
+        foreach (GameObject window in windows)
         {
             window.SetActive(false);
-        
+
         }
     }
 
@@ -115,7 +119,7 @@ public class UIControl : MonoBehaviour
 
     #region Player Health
 
-    public void UpdateHealthBar (int health)
+    public void UpdateHealthBar(int health)
     {
         healthBar.value = health;
     }
@@ -126,6 +130,27 @@ public class UIControl : MonoBehaviour
 
     #endregion
 
+    #region Crafting Table
+
+    //This function moves the inventory slots to a different parent, so the player can see their items when crafting with any crafting system
+    public void ChangeInventorySlotsParent()
+    {
+        if(windows[1].activeSelf)
+        {
+            inventorySlots.SetParent(windows[1].transform);
+        }
+        if(windows[0].activeSelf)
+        {
+            inventorySlots.SetParent(windows[0].transform);
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
+    #endregion
 }
 
 

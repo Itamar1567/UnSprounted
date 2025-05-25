@@ -84,7 +84,7 @@ public class Crafting : MonoBehaviour
             }
             else
             {
-                itemInSlots += "null";
+                //itemInSlots += "null";
             }
 
         }
