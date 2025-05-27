@@ -16,7 +16,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     int damageAmount;
     int itemMineLevel;
     float timeToBreak;
-    float timeBetweenAttack;
+    float attackWaitTime;
     bool block;
     bool interactable;
     public CanvasGroup canvasGroup { get; private set; }
@@ -45,6 +45,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         healAmount = item.GetHealAmount();
         damageAmount = item.GetDamageAccount();
         itemMineLevel = item.GetMineLevel();
+        attackWaitTime = item.GetAttackWaitTime();
         block = item.block;
         interactable = item.interactable;
     }
@@ -84,7 +85,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
 
     public float GetTimeBetweenAttacks()
     {
-        return timeBetweenAttack;
+        return attackWaitTime;
     }
     public string GetItemName()
     {

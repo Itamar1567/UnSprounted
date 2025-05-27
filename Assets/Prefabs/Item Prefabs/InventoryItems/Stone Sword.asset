@@ -22,3 +22,4 @@ MonoBehaviour:
   healAmount: 0
   damageAmount: 15
   itemMineLevel: 0
+  attackWaitTime: 1.5

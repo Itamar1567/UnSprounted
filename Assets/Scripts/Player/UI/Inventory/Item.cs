@@ -13,9 +13,11 @@ public class Item : ScriptableObject
 
     [Header("If the Item can be equipped")]
     public GameObject equipmentPrefab;
-    [SerializeField] int healAmount;
-    [SerializeField] int damageAmount;
-    [SerializeField] int itemMineLevel;
+    [SerializeField] private int healAmount;
+    [SerializeField] private int damageAmount;
+    [SerializeField] private int itemMineLevel;
+    [SerializeField] private float attackWaitTime;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,6 +54,11 @@ public class Item : ScriptableObject
     public int GetMineLevel()
     {
         return itemMineLevel;
+    }
+
+    public float GetAttackWaitTime()
+    {
+        return attackWaitTime;
     }
 
 }

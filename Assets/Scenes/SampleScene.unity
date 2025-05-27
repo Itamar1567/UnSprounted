@@ -9262,6 +9262,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTag: 0
+--- !u!1001 &1655183430
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.0036421
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 816538699037806820, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6128760663523227231, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_Name
+      value: Rock (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344728215765268233, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
 --- !u!1 &1691974057
 GameObject:
   m_ObjectHideFlags: 0
@@ -10276,6 +10337,7 @@ MonoBehaviour:
   attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   damage: 5
   handDamage: 1
+  attackWaitTime: 5
 --- !u!114 &2008431618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11237,5 +11299,6 @@ SceneRoots:
   - {fileID: 1205153310}
   - {fileID: 1181884969}
   - {fileID: 5420883111047568620}
+  - {fileID: 1655183430}
   - {fileID: 686613600}
   - {fileID: 22671648}
