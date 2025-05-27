@@ -35,9 +35,8 @@ public class WorldInteraction : MonoBehaviour
                 Vector3Int cellPos = tilemap.WorldToCell(mousePos);
                 Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPos);
                 Indicator.transform.position = cellCenter;
-                //Indicator.transform.localScale = gameObject.GetComponent<Grid>().cellSize;
                 Indicator.SetActive(true);
-                Debug.Log(tilemap);
+                //Debug.Log(tilemap);
             }
             else
             {
