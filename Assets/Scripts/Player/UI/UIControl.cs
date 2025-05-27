@@ -209,7 +209,7 @@ public class UIControl : MonoBehaviour
 
     private void HightlightSelectedSlot(int number)
     {
-        Debug.Log("Called");
+        //Debug.Log("Called");
         //highlights the selected slot by assigning a new image
         hotbarSlotsHolder.transform.GetChild(number).GetComponent<Image>().sprite = hotbarHighlightedSlotSprite;
         //Traverses through the hot bar and dehighlights all slots that are not selected
