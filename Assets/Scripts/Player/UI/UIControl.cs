@@ -7,9 +7,15 @@ public class UIControl : MonoBehaviour
 
     public static UIControl Singleton;
     private bool isGamePaused = false;
+    private int hotbarIncrementer = 0;
+    [SerializeField] private GameObject hotbarSlotsHolder;
     [SerializeField] private GameObject[] windows;
+    [SerializeField] private Sprite hotbarDefaultSlotSprite;
+    [SerializeField] private Sprite hotbarHighlightedSlotSprite;
     [SerializeField] private Slider healthBar;
     [SerializeField] private Transform inventorySlots;
+    [SerializeField] private InputActionReference scrollAction;
+    [SerializeField] private InputActionReference hotbarAction;
 
 
 
@@ -47,6 +53,13 @@ public class UIControl : MonoBehaviour
         {
             OpenWidow(1);
         }
+        if (scrollAction.action.ReadValue<Vector2>().y != 0)
+        {
+            hotbarIncrementer += (int)scrollAction.action.ReadValue<Vector2>().y;
+            TraverseHotbarViaScrollWheel();
+        }
+
+        HightlightSelectedSlot(hotbarIncrementer);
 
     }
 
@@ -117,6 +130,19 @@ public class UIControl : MonoBehaviour
         Debug.Log(window.name);
     }
 
+    private void OnEnable()
+    {
+        hotbarAction.action.performed += OnHotBarPressed;
+        hotbarAction.action.Enable();
+    }
+    private void OnDisable()
+    {
+
+        hotbarAction.action.performed -= OnHotBarPressed;
+        hotbarAction.action.Disable();
+
+    }
+
     #region Player Health
 
     public void UpdateHealthBar(int health)
@@ -135,11 +161,11 @@ public class UIControl : MonoBehaviour
     //This function moves the inventory slots to a different parent, so the player can see their items when crafting with any crafting system
     public void ChangeInventorySlotsParent()
     {
-        if(windows[1].activeSelf)
+        if (windows[1].activeSelf)
         {
             inventorySlots.SetParent(windows[1].transform);
         }
-        if(windows[0].activeSelf)
+        if (windows[0].activeSelf)
         {
             inventorySlots.SetParent(windows[0].transform);
         }
@@ -150,6 +176,50 @@ public class UIControl : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region Hotbar
+
+    private void TraverseHotbarViaScrollWheel()
+    {
+        if (hotbarIncrementer >= hotbarSlotsHolder.transform.childCount)
+        {
+            hotbarIncrementer = 0;
+        }
+        if (hotbarIncrementer < 0)
+        {
+            hotbarIncrementer = hotbarSlotsHolder.transform.childCount - 1;
+        }
+    }
+
+    private void HightlightSelectedSlot(int number)
+    {
+        Debug.Log("Called");
+        //highlights the selected slot by assigning a new image
+        hotbarSlotsHolder.transform.GetChild(number).GetComponent<Image>().sprite = hotbarHighlightedSlotSprite;
+        //Traverses through the hot bar and dehighlights all slots that are not selected
+        for(int i = 0; i < hotbarSlotsHolder.transform.childCount; i++)
+        {
+            if(i == number)
+            {
+                continue;
+            }
+
+            hotbarSlotsHolder.transform.GetChild(i).GetComponent<Image>().sprite = hotbarDefaultSlotSprite;
+        }
+
+    }
+
+    private void OnHotBarPressed(InputAction.CallbackContext context)
+    {
+        var keyname = context.control.name;
+        if (int.TryParse(keyname, out int number))
+        {
+            number -= 1;
+            hotbarIncrementer = number;
+        }
+
+    }
     #endregion
 }
 
