@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cfa0d94212680434fb4ac7bb8109392a
+guid: 726c3887324daaf46961b9775852a1b0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 712035800519618848
-    second: Sword_0
+      213: 8645510945980340434
+    second: StoneSword_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sword_0
+      name: StoneSword_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 021355db9c8a1e900800000000000000
-      internalID: 712035800519618848
+      spriteID: 2d8d8e446660bf770800000000000000
+      internalID: 8645510945980340434
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Sword_0: 712035800519618848
+      StoneSword_0: 8645510945980340434
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

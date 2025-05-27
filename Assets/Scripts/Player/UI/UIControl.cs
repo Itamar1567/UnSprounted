@@ -180,6 +180,21 @@ public class UIControl : MonoBehaviour
 
     #region Hotbar
 
+    //Returns the Transform of player's selected hotbar slot
+    public Transform SelectedHotbarSlot()
+    {
+        return hotbarSlotsHolder.transform.GetChild(hotbarIncrementer);
+    }
+    //Returns the InventoryItem of player's selected hotbar slot, if there is an item child attached to the slot
+    public InventoryItem SelectedItemInHotbarSlot()
+    {
+        if(hotbarSlotsHolder.transform.GetChild(hotbarIncrementer).childCount > 0)
+        {
+            return hotbarSlotsHolder.transform.GetChild(hotbarIncrementer).GetChild(0).GetComponent<InventoryItem>();
+        }
+
+        return null;
+    }
     private void TraverseHotbarViaScrollWheel()
     {
         if (hotbarIncrementer >= hotbarSlotsHolder.transform.childCount)
@@ -220,6 +235,7 @@ public class UIControl : MonoBehaviour
         }
 
     }
+
     #endregion
 }
 
