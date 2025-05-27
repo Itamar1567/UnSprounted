@@ -67,7 +67,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         return healAmount;
     }
 
-    public int GetDamageAccount()
+    public int GetDamageAmount()
     {
         return damageAmount;
     }

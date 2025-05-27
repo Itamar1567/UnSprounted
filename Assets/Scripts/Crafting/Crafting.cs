@@ -38,6 +38,7 @@ public class Crafting : MonoBehaviour
     void Start()
     {
         RecipeList.Add(new Recipes { itemId = 2, itemName = "Crafting Table", ingredients = "loglogloglog" });
+        RecipeList.Add(new Recipes { itemId = 3, itemName = "Stone Sword", ingredients = "rockrocklog" });
     }
 
     // Update is called once per frame
