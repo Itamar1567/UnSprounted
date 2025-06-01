@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -49,9 +50,16 @@ public class UIControl : MonoBehaviour
         {
             OpenWidow(0);
         }
-        if (Keyboard.current.cKey.wasPressedThisFrame)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            OpenWidow(1);
+            if(IsWindowOpen())
+            {
+                CloseAllWindows();
+            }
+            else
+            {
+                //open pause menu
+            }
         }
         if (scrollAction.action.ReadValue<Vector2>().y != 0)
         {
@@ -71,7 +79,7 @@ public class UIControl : MonoBehaviour
     }
 
     //This function opens a UI window and closes all other open UI windows, if any
-    private void OpenWidow(int windowId)
+    public void OpenWidow(int windowId)
     {
 
         Debug.Log("Opening...");
@@ -121,6 +129,9 @@ public class UIControl : MonoBehaviour
             window.SetActive(false);
 
         }
+        isGamePaused = false;
+        Time.timeScale = 1.0f;
+
     }
 
     private void CloseActiveWindow(GameObject window)
@@ -128,6 +139,22 @@ public class UIControl : MonoBehaviour
         isGamePaused = false;
         window.SetActive(false);
         Debug.Log(window.name);
+    }
+
+    //Returns true of any window is open and false if no windows are open
+    private bool IsWindowOpen()
+    {
+        for(int i = 0; i < windows.Length;i++) 
+        {
+
+            if (windows[i].activeSelf)
+            {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 
     private void OnEnable()
@@ -188,7 +215,7 @@ public class UIControl : MonoBehaviour
     //Returns the InventoryItem of player's selected hotbar slot, if there is an item child attached to the slot
     public InventoryItem SelectedItemInHotbarSlot()
     {
-        if(hotbarSlotsHolder.transform.GetChild(hotbarIncrementer).childCount > 0)
+        if (hotbarSlotsHolder.transform.GetChild(hotbarIncrementer).childCount > 0)
         {
             return hotbarSlotsHolder.transform.GetChild(hotbarIncrementer).GetChild(0).GetComponent<InventoryItem>();
         }
@@ -213,9 +240,9 @@ public class UIControl : MonoBehaviour
         //highlights the selected slot by assigning a new image
         hotbarSlotsHolder.transform.GetChild(number).GetComponent<Image>().sprite = hotbarHighlightedSlotSprite;
         //Traverses through the hot bar and dehighlights all slots that are not selected
-        for(int i = 0; i < hotbarSlotsHolder.transform.childCount; i++)
+        for (int i = 0; i < hotbarSlotsHolder.transform.childCount; i++)
         {
-            if(i == number)
+            if (i == number)
             {
                 continue;
             }

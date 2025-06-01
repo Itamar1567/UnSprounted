@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -17,6 +18,7 @@ public class WorldInteraction : MonoBehaviour
     [SerializeField] private GameObject Indicator;
     [SerializeField] private GameObject[] blockObjects;
     [SerializeField] private List<Block> BlocksList = new List<Block>();
+    [SerializeField] private InputActionReference interactAction;
     private string layerName;
     private Vector2 mousePos;
     private InventoryItem inventoryItemRef;
@@ -59,9 +61,23 @@ public class WorldInteraction : MonoBehaviour
             {
                 PlaceBlock();
             }
+
+            if (layerName == "Interactable")
+            {
+                if (hit.collider.name == "CraftingTable")
+                {
+                    if(interactAction.action.WasPressedThisFrame())
+                    {
+                        UIControl.Singleton.OpenWidow(1);
+                    }
+                }
+            }
         }
 
+        
     }
+
+
 
     #region Block Placement
 
