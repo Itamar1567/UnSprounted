@@ -14,7 +14,7 @@ public class ItemsID_Correspondance
  * 1: Rock
  * 2: CraftingTable
  * 3: StoneSword
- * 
+ * 4: Smelter
  * 
  * 
  * 

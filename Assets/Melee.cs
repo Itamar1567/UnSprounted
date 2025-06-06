@@ -5,14 +5,16 @@ using UnityEngine.InputSystem;
 public class Melee : MonoBehaviour
 {
 
-    [SerializeField] private InputActionReference attackAction;
     [SerializeField] private int damage = 5;
     [SerializeField] private int handDamage = 1;
     [SerializeField] private float attackWaitTime = 5;
     [SerializeField] private float handAttackTime = 1;
+    [SerializeField] private InputActionReference attackAction;
+    [SerializeField] private Animator anim;
     private bool canAttack = true;
     private RaycastHit2D hit;
     private InventoryItem selectedItemRef;
+
 
     //[SerializeField] private LayerMask enemyLayer;
 
@@ -44,7 +46,7 @@ public class Melee : MonoBehaviour
     {
 
         canAttack = false;
-
+        //anim.SetTrigger("Attack");
         if (UIControl.Singleton.SelectedItemInHotbarSlot() != null)
         {
             selectedItemRef = UIControl.Singleton.SelectedItemInHotbarSlot();

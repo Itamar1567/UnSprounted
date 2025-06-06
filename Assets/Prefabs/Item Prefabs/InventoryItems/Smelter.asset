@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad93e1c51b633a04ea4c0df66938f1d8, type: 3}
-  m_Name: Crafting Table
+  m_Name: Smelter
   m_EditorClassIdentifier: 
-  sprite: {fileID: 7536810191865729410, guid: 26d28aa45cbaa384eb6f5ad50fe67244, type: 3}
+  sprite: {fileID: -575947002, guid: 0637646ea7830df4f9e77ce90f671fd5, type: 3}
   itemTag: 0
-  itemName: Crafting Table
-  itemID: 2
+  itemName: Smelter
+  itemID: 4
   block: 1
   interactable: 0
   equipmentPrefab: {fileID: 0}
   healAmount: 0
   damageAmount: 0
   itemMineLevel: 0
+  attackWaitTime: 1.5

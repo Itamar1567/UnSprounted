@@ -27,8 +27,9 @@ public class WorldInteraction : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        BlocksList.Add(new Block { itemId = 2, blockName = "CraftingTable", block = blockObjects[0] });
+        BlocksList.Add(new Block { itemId = 4, blockName = "Smelter", block = blockObjects[1] });
 
-        BlocksList.Add(new Block { itemId = 2, blockName = "Crafting Table", block = blockObjects[0] });
     }
 
     // Update is called once per frame
@@ -64,11 +65,21 @@ public class WorldInteraction : MonoBehaviour
 
             if (layerName == "Interactable")
             {
-                if (hit.collider.name == "CraftingTable")
+                //Crafting table
+                if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 2)
                 {
                     if(interactAction.action.WasPressedThisFrame())
                     {
+                        Debug.Log("Fafaff");
                         UIControl.Singleton.OpenWidow(1);
+                    }
+                }
+                //Smelter
+                if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 4)
+                {
+                    if (interactAction.action.WasPressedThisFrame())
+                    {
+                        UIControl.Singleton.OpenWidow(2);
                     }
                 }
             }
@@ -94,6 +105,7 @@ public class WorldInteraction : MonoBehaviour
                     {
                         Debug.Log(block.blockName);
                         GameObject PlacedObject = Instantiate(block.block, Indicator.transform.position, Quaternion.identity);
+                        PlacedObject.GetComponent<BlockIdentifier>().SetItemId(block.itemId);
                         Destroy(inventoryItemRef.gameObject);
                     }
                 }

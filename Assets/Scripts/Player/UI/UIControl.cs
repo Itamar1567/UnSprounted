@@ -96,9 +96,12 @@ public class UIControl : MonoBehaviour
             windows[windowId].SetActive(true);
             CloseAllOtherWindows(windowId);
         }
+        if(windowId == 0 || windowId == 1 || windowId == 2)
+        {
+            ChangeInventorySlotsParent(windowId);
+        }
 
-        ChangeInventorySlotsParent();
-
+        
 
     }
     //This function closes all windows except the window that was just openend
@@ -186,15 +189,11 @@ public class UIControl : MonoBehaviour
     #region Crafting Table
 
     //This function moves the inventory slots to a different parent, so the player can see their items when crafting with any crafting system
-    public void ChangeInventorySlotsParent()
+    public void ChangeInventorySlotsParent(int id)
     {
-        if (windows[1].activeSelf)
+        if (windows[id].activeSelf)
         {
-            inventorySlots.SetParent(windows[1].transform);
-        }
-        if (windows[0].activeSelf)
-        {
-            inventorySlots.SetParent(windows[0].transform);
+            inventorySlots.SetParent(windows[id].transform);
         }
         else
         {
@@ -262,6 +261,10 @@ public class UIControl : MonoBehaviour
         }
 
     }
+
+    #endregion
+
+    #region Smelter
 
     #endregion
 }
