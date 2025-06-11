@@ -33,8 +33,17 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void LoadMain_Level()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void LoadSettings_Level()
+    {
+        SceneManager.LoadScene(2);
+    }
     public void QuitGame()
     {
         Application.Quit();
     }
+
 }
