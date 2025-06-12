@@ -4,25 +4,48 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using TMPro;
 
 public class InventoryItem : MonoBehaviour, IPointerClickHandler
 {
-    Image itemIcon;
+
 
     public string itemName;
     public int itemID;
-
-    int healAmount;
-    int damageAmount;
-    int itemMineLevel;
-    float timeToBreak;
-    float attackWaitTime;
-    bool block;
-    bool interactable;
     public CanvasGroup canvasGroup { get; private set; }
 
     public Item myItem { get; set; }
     public InventorySlot activeSlot { get; set; }
+
+    [SerializeField] TMP_Text slotTextHolder;
+
+    private int healAmount;
+    private int damageAmount;
+    private int itemMineLevel;
+    private int _count = 1;
+    //Any change that is made to *count* this will be called
+    private int count
+    {
+        get => _count;
+        set 
+        {
+            if(_count != value)
+            {
+                _count = value;
+                IsItemCountBelowZero();
+
+            }
+        
+        }
+    }
+    private float timeToBreak;
+    private float attackWaitTime;
+    private bool block;
+    private bool interactable;
+
+    private Image itemIcon;
+
+
 
     void Awake()
     {
@@ -48,12 +71,25 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         attackWaitTime = item.GetAttackWaitTime();
         block = item.block;
         interactable = item.interactable;
+        SetText(count.ToString());
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+
+        //if there is not item in hand call this
+        if (eventData.button == PointerEventData.InputButton.Left && Inventory.Singleton.IsItemInHand() == false)
         {
+            Debug.Log("Swapped item");
             Inventory.Singleton.SetCarriedItem(this);
+        }
+        else if (eventData.button == PointerEventData.InputButton.Left && Inventory.Singleton.IsItemInHand() == true)
+        {
+            //*this* means the InventoryItem object
+            Inventory.Singleton.LeftClickCheck(this);
+        }
+        if(eventData.button == PointerEventData.InputButton.Right && Inventory.Singleton.IsItemInHand())
+        {
+            Inventory.Singleton.AddToItemCount(this);
         }
     }
 
@@ -82,6 +118,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     {
         return timeToBreak;
     }
+    public int GetCount()
+    {
+        return count;
+    }
 
     public float GetTimeBetweenAttacks()
     {
@@ -100,6 +140,24 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         return interactable;
     }
 
+    //increase or decrease count
+    public void AddRemoveCount(int num)
+    {
+        count += num;
+        SetText(count.ToString());
+    }
+    public void SetText(string text)
+    {
+        slotTextHolder.text = text;
+    }
+    //Destroyed the gameobject if item count is below zero
+    public void IsItemCountBelowZero()
+    {
+        if (count <= 0) 
+        {
+            Destroy(gameObject);
+        }
+    }
 
 
 

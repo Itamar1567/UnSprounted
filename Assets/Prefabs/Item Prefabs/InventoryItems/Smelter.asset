@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -575947002, guid: 0637646ea7830df4f9e77ce90f671fd5, type: 3}
   itemTag: 0
-  itemName: Smelter
+  itemName: smelter
   itemID: 4
   block: 1
   interactable: 0

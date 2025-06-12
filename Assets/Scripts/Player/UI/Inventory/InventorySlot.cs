@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,6 +12,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 
     public SlotTag myTag;
 
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -19,6 +21,11 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
             if (myTag != SlotTag.None && Inventory.carriedItem.myItem.itemTag != myTag) return;
             SetItem(Inventory.carriedItem);
         }
+        if(eventData.button == PointerEventData.InputButton.Right && Inventory.Singleton.IsItemInHand())
+        {
+            Inventory.Singleton.SpawnInventoryItemAtPosition(this);
+        }
+        
     }
 
     public void SetItem(InventoryItem item)
@@ -37,5 +44,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         if (myTag != SlotTag.None)
         { Inventory.Singleton.EquipEquipment(myTag, myItem); }
     }
+
+    
 }
 
