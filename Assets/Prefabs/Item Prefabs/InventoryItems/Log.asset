@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 2368875588930414890, guid: 0203ec8f13974194c9e8cc283cfbb68d, type: 3}
   itemTag: 0
-  itemName: Log
+  itemName: log
   itemID: 0
   block: 0
   interactable: 0
@@ -22,3 +22,4 @@ MonoBehaviour:
   healAmount: 0
   damageAmount: 0
   itemMineLevel: 0
+  attackWaitTime: 0

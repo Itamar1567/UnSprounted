@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 8645510945980340434, guid: 726c3887324daaf46961b9775852a1b0, type: 3}
   itemTag: 0
-  itemName: Rock
+  itemName: stonesword
   itemID: 1
   block: 0
   interactable: 0

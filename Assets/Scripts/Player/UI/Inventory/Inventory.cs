@@ -1,8 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -52,6 +54,7 @@ public class Inventory : MonoBehaviour
         carriedItem.transform.position = Mouse.current.position.ReadValue();
     }
 
+    //Called when an item is in the player's hand
     public void SetCarriedItem(InventoryItem item)
     {
         if (carriedItem != null)
@@ -66,6 +69,7 @@ public class Inventory : MonoBehaviour
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
         item.transform.SetParent(draggablesTransform);
+        //Debug.Log("Entered");
     }
 
     public void EquipEquipment(SlotTag tag, InventoryItem item = null)
@@ -99,9 +103,11 @@ public class Inventory : MonoBehaviour
         Item _item = items[itemID];
         if (_item == null)
         { _item = PickRandomItem(); }
-
         for (int i = 0; i < inventorySlots.Length; i++)
         {
+            Debug.Log(inventorySlots[i].myItem);
+            Debug.Log(_item);
+
             // Check if the slot is empty
             if (inventorySlots[i].myItem == null)
             {
@@ -109,9 +115,30 @@ public class Inventory : MonoBehaviour
                 inventorySlots[i].transform.GetChild(0).GetComponent<InventoryItem>().itemName = _item.itemName;
                 break;
             }
+            if (inventorySlots[i].myItem.itemID == _item.itemID)
+            {
+                inventorySlots[i].myItem.AddRemoveCount(1);
+                break;
+            }
         }
     }
+    //Spawns an inventory item at a requested and valid slot position
+    public void SpawnInventoryItemAtPosition(InventorySlot slot)
+    {
+        Item _item = carriedItem.myItem;
+        if(slot.myItem == null)
+        {
+            Instantiate(itemPrefab, slot.transform).Initialize(_item, slot);
+        }
+        carriedItem.AddRemoveCount(-1);
 
+    }
+    //Increments the item in the slot's count and decrements the carried item's count
+    public void AddToItemCount(InventoryItem item)
+    {
+        item.AddRemoveCount(1);
+        carriedItem.AddRemoveCount(-1);
+    }
     Item PickRandomItem()
     {
         int random = Random.Range(0, items.Length);
@@ -131,10 +158,20 @@ public class Inventory : MonoBehaviour
             }
             hotbarSlots[i].gameObject.GetComponent<Image>().color = Color.white;
         }
+    }
 
-
-
-
+    //Called when the player left clicks whilst holding an item and checks wether to swap the items or if they are the same add them together
+    public void LeftClickCheck(InventoryItem item)
+    {
+        if(carriedItem.itemID == item.itemID)
+        {
+            item.AddRemoveCount(carriedItem.GetCount());
+            carriedItem.AddRemoveCount(-carriedItem.GetCount());
+        }
+        else
+        {
+            SetCarriedItem(item);
+        }
     }
 
     public void DeleteItem(GameObject objToDestroy)
@@ -146,7 +183,7 @@ public class Inventory : MonoBehaviour
 
     public bool IsInventoryFull()
     {
-        itemsInInventoryCount = itemsCountInInventory();
+        itemsInInventoryCount = ItemsCountInInventory();
         Debug.Log(itemsInInventoryCount);
         if (inventorySlots.Length <= itemsInInventoryCount)
         {
@@ -158,7 +195,24 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private int itemsCountInInventory()
+    //Returns true or false based by checking if an item is being carried by the player
+    public bool IsItemInHand()
+    {
+        if (carriedItem != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //Returns the item that the player is currently holding
+    public InventoryItem GetItemInHand()
+    {
+        return carriedItem;
+    }
+    private int ItemsCountInInventory()
     {
         int count = 0;
 
@@ -172,6 +226,7 @@ public class Inventory : MonoBehaviour
 
         return count;
     }
+
 
     private void OnDestroy()
     {
