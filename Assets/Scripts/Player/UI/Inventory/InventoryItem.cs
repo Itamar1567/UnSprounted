@@ -73,23 +73,44 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         interactable = item.interactable;
         SetText(count.ToString());
     }
+    public InventoryItem InitializeOnHand(Item item)
+    {
+        activeSlot = null;
+        myItem = item;
+        itemName = item.name;
+        itemIcon.sprite = item.sprite;
+        itemID = item.GetItemID();
+        healAmount = item.GetHealAmount();
+        damageAmount = item.GetDamageAccount();
+        itemMineLevel = item.GetMineLevel();
+        attackWaitTime = item.GetAttackWaitTime();
+        block = item.block;
+        interactable = item.interactable;
+        SetText(count.ToString());
+        return this;
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
 
         //if there is not item in hand call this
-        if (eventData.button == PointerEventData.InputButton.Left && Inventory.Singleton.IsItemInHand() == false)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Debug.Log("Swapped item");
-            Inventory.Singleton.SetCarriedItem(this);
+            switch (Inventory.Singleton.IsItemInHand())
+            {
+                //*this* means the InventoryItem object
+                case true: Inventory.Singleton.LeftClickCheck(this); break;
+                case false: Inventory.Singleton.SetCarriedItem(this); break;
+
+            }            
         }
-        else if (eventData.button == PointerEventData.InputButton.Left && Inventory.Singleton.IsItemInHand() == true)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            //*this* means the InventoryItem object
-            Inventory.Singleton.LeftClickCheck(this);
-        }
-        if(eventData.button == PointerEventData.InputButton.Right && Inventory.Singleton.IsItemInHand())
-        {
-            Inventory.Singleton.AddToItemCount(this);
+            switch(Inventory.Singleton.IsItemInHand())
+            {
+                case true: Inventory.Singleton.AddToItemCount(this, 1); break;
+                case false: Inventory.Singleton.SpawnInventoryItemInHand(this); break;
+            }
+            
         }
     }
 

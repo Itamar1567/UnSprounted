@@ -57,17 +57,24 @@ public class Inventory : MonoBehaviour
     //Called when an item is in the player's hand
     public void SetCarriedItem(InventoryItem item)
     {
-        if (carriedItem != null)
+        if(item.activeSlot != null)
         {
-            if (item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
-            item.activeSlot.SetItem(carriedItem);
-        }
+            if (carriedItem != null)
+            {
+                if (item.activeSlot.myTag != SlotTag.None && item.activeSlot.myTag != carriedItem.myItem.itemTag) return;
+                item.activeSlot.SetItem(carriedItem);
+            }
 
-        if (item.activeSlot.myTag != SlotTag.None)
-        { EquipEquipment(item.activeSlot.myTag, null); }
+            if (item.activeSlot.myTag != SlotTag.None)
+            { EquipEquipment(item.activeSlot.myTag, null); }
+
+            //Reset the old slot
+            item.activeSlot.myItem = null;
+        }
 
         carriedItem = item;
         carriedItem.canvasGroup.blocksRaycasts = false;
+        
         item.transform.SetParent(draggablesTransform);
         //Debug.Log("Entered");
     }
@@ -133,11 +140,22 @@ public class Inventory : MonoBehaviour
         carriedItem.AddRemoveCount(-1);
 
     }
-    //Increments the item in the slot's count and decrements the carried item's count
-    public void AddToItemCount(InventoryItem item)
+    //Spawns an Item in the player's hand/draggable component
+    public void SpawnInventoryItemInHand(InventoryItem item)
     {
-        item.AddRemoveCount(1);
-        carriedItem.AddRemoveCount(-1);
+        //using inventorySlots[0] because using draggable changes the scaling and the item must be in the inventorySlot scale(Potential issues with this piece of code though): This may need to change
+        InventoryItem _item = Instantiate(itemPrefab, inventorySlots[0].transform).InitializeOnHand(item.myItem);
+        SetCarriedItem(_item);
+        //Divide the old item count by 2 and add that to the new item
+        Debug.Log(item.GetCount()/2);
+        carriedItem.AddRemoveCount(item.GetCount()/2 - 1); //-1 do to the newly instatiated item starting with a count of 1
+        item.AddRemoveCount(-carriedItem.GetCount());
+    }
+    //Increments the item in the slot's count and decrements the carried item's count
+    public void AddToItemCount(InventoryItem item, int amount)
+    {
+        item.AddRemoveCount(amount);
+        carriedItem.AddRemoveCount(-amount);
     }
     Item PickRandomItem()
     {

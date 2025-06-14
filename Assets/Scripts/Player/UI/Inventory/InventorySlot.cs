@@ -33,7 +33,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         Inventory.carriedItem = null;
 
         // Reset old slot
-        item.activeSlot.myItem = null;
+        if(item.activeSlot != null)
+        {
+            item.activeSlot.myItem = null;
+        }
 
         // Set current slot
         myItem = item;
