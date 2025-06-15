@@ -1,4 +1,5 @@
 using UnityEngine;
+
 //public enum SlotTag { None, Head, Chest, Legs, Feet };
 [CreateAssetMenu(menuName = "Scriptable Objects/Item")]
 public class Item : ScriptableObject
@@ -10,6 +11,7 @@ public class Item : ScriptableObject
     public int itemID;
     public bool block;
     public bool interactable;
+    public bool energySource;
 
     [Header("If the Item can be equipped")]
     public GameObject equipmentPrefab;
@@ -17,6 +19,7 @@ public class Item : ScriptableObject
     [SerializeField] private int damageAmount;
     [SerializeField] private int itemMineLevel;
     [SerializeField] private float attackWaitTime;
+    [SerializeField] private float smeltTime = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,5 +63,8 @@ public class Item : ScriptableObject
     {
         return attackWaitTime;
     }
-
+    public float GetSmeltTime()
+    {
+        return smeltTime;
+    }
 }

@@ -23,7 +23,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         }
         if(eventData.button == PointerEventData.InputButton.Right && Inventory.Singleton.IsItemInHand())
         {
-            Inventory.Singleton.SpawnInventoryItemAtPosition(this);
+            Inventory.Singleton.SpawnInventoryItemAtPosition(this, Inventory.carriedItem.myItem);
         }
         
     }

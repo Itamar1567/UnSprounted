@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,7 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Singleton;
     public static InventoryItem carriedItem;
+    public Item[] items;
     [SerializeField] InventoryItem mockItemForNullCases;
 
     [SerializeField] InventorySlot inventoryCraftingResaultSlot;
@@ -31,7 +33,8 @@ public class Inventory : MonoBehaviour
 
     private int positionOnHotBar;
     private int itemsInInventoryCount = 0;
-    public Item[] items;
+    //A dictinary/unordered_map that eqautes 1 item id to another's, Ex: ironID = 1, IronIngot = 2 if I look up [1] i will get 2
+    private Dictionary<int, int> itemSmeltedEquivelent = new Dictionary<int, int>();
 
     void Awake()
     {
@@ -44,11 +47,13 @@ public class Inventory : MonoBehaviour
 
         positionOnHotBar = 0;
         //giveItemBtn.onClick.AddListener(delegate { SpawnInventoryItem(500); });
+        
+        itemSmeltedEquivelent[5] = 6;
     }
 
     void Update()
     {
-      
+
         if (carriedItem == null) return;
 
         carriedItem.transform.position = Mouse.current.position.ReadValue();
@@ -130,14 +135,13 @@ public class Inventory : MonoBehaviour
         }
     }
     //Spawns an inventory item at a requested and valid slot position
-    public void SpawnInventoryItemAtPosition(InventorySlot slot)
+    public void SpawnInventoryItemAtPosition(InventorySlot slot, Item item)
     {
-        Item _item = carriedItem.myItem;
+        Item _item = item;
         if(slot.myItem == null)
         {
-            Instantiate(itemPrefab, slot.transform).Initialize(_item, slot);
+          Instantiate(itemPrefab, slot.transform).Initialize(_item, slot);
         }
-        carriedItem.AddRemoveCount(-1);
 
     }
     //Spawns an Item in the player's hand/draggable component
@@ -163,6 +167,39 @@ public class Inventory : MonoBehaviour
         return items[random];
     }
 
+    //This moves an exact amount of items from one stack to another one, a - amount, b + amount
+    public void ExchangeItemCount(InventorySlot a, InventorySlot b, int amount)
+    {
+        a.myItem.AddRemoveCount(-amount);
+        b.myItem.AddRemoveCount(amount);
+    }
+
+    public Item GetSmeltedItemEquivalence(InventoryItem item)
+    {
+        int initialItemId = item.myItem.GetItemID();
+        //Checks if the given id has a corresponding smelted item
+        Debug.Log("Given item ID: " + item.myItem.GetItemID());
+        Debug.Log("Item equivalnce: " + itemSmeltedEquivelent[initialItemId]);
+        if(itemSmeltedEquivelent.TryGetValue(initialItemId, out int smeltedItemId))
+        {
+            Debug.Log(smeltedItemId);
+            if(smeltedItemId >= 0 && smeltedItemId < items.Length)
+            {
+                Debug.Log("Entered...");
+                return items[smeltedItemId];
+            }
+            else
+            {
+                Debug.Log(smeltedItemId + " Item was out of range, " + "array max = " + items.Length);
+                return null;
+            }
+        }
+        Debug.Log("Item does not smelt ");
+        return null;
+
+
+
+    }
     public void CycleThroughHotBar()
     {
 
