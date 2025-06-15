@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad93e1c51b633a04ea4c0df66938f1d8, type: 3}
-  m_Name: Log
+  m_Name: Iron Ingot
   m_EditorClassIdentifier: 
-  sprite: {fileID: 2368875588930414890, guid: 0203ec8f13974194c9e8cc283cfbb68d, type: 3}
+  sprite: {fileID: 6669922367293318298, guid: 4416c9cdc5ec7564da60f553c1a5fd37, type: 3}
   itemTag: 0
-  itemName: log
-  itemID: 0
+  itemName: ironingot
+  itemID: 6
   block: 0
   interactable: 0
-  energySource: 1
   equipmentPrefab: {fileID: 0}
   healAmount: 0
   damageAmount: 0
   itemMineLevel: 0
   attackWaitTime: 0
-  smeltTime: 3

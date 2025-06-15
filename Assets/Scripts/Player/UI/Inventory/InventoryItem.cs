@@ -22,6 +22,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     private int healAmount;
     private int damageAmount;
     private int itemMineLevel;
+    //This count is a helper for when an item spawns and need to be equal to zero without being destroyed
+    private int virtualCount = 0;
     private int _count = 1;
     //Any change that is made to *count* this will be called
     private int count
@@ -38,10 +40,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         
         }
     }
+    private float smeltTime;
     private float timeToBreak;
     private float attackWaitTime;
     private bool block;
     private bool interactable;
+    private bool energySource;
 
     private Image itemIcon;
 
@@ -55,6 +59,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
 
     public void Initialize(Item item, InventorySlot parent)
     {
+        Debug.Log("Adada");
         if(itemIcon == null)
         {
             itemIcon = GetComponent<Image>();
@@ -71,6 +76,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         attackWaitTime = item.GetAttackWaitTime();
         block = item.block;
         interactable = item.interactable;
+        energySource = item.energySource;
+        smeltTime = item.GetSmeltTime();
         SetText(count.ToString());
     }
     public InventoryItem InitializeOnHand(Item item)
@@ -86,6 +93,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         attackWaitTime = item.GetAttackWaitTime();
         block = item.block;
         interactable = item.interactable;
+        energySource = item.energySource;
+        smeltTime = item.GetSmeltTime();
         SetText(count.ToString());
         return this;
     }
@@ -143,10 +152,17 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     {
         return count;
     }
-
+    public int GetVirtualCount()
+    {
+        return virtualCount;
+    }
     public float GetTimeBetweenAttacks()
     {
         return attackWaitTime;
+    }
+    public float GetSmeltTime()
+    {
+        return smeltTime;
     }
     public string GetItemName()
     {
@@ -159,6 +175,11 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public bool isInteractable()
     {
         return interactable;
+    }
+    //Returns true if item is an energy source and false if it is not
+    public bool IsEnergySource()
+    {
+        return energySource;
     }
 
     //increase or decrease count
@@ -179,7 +200,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
             Destroy(gameObject);
         }
     }
-
-
-
+    public void AddVirtualCount(int amount)
+    {
+        virtualCount += amount; 
+    }
 }

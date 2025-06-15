@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad93e1c51b633a04ea4c0df66938f1d8, type: 3}
-  m_Name: Log
+  m_Name: Iron Ore
   m_EditorClassIdentifier: 
-  sprite: {fileID: 2368875588930414890, guid: 0203ec8f13974194c9e8cc283cfbb68d, type: 3}
+  sprite: {fileID: 3615109535770239713, guid: d935c374556007f489cd1d32bba5737e, type: 3}
   itemTag: 0
-  itemName: log
-  itemID: 0
+  itemName: ironore
+  itemID: 5
   block: 0
   interactable: 0
-  energySource: 1
   equipmentPrefab: {fileID: 0}
   healAmount: 0
   damageAmount: 0
   itemMineLevel: 0
   attackWaitTime: 0
-  smeltTime: 3
