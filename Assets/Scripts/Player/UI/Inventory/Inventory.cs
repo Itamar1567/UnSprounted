@@ -1,3 +1,4 @@
+using Pathfinding.Serialization;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;

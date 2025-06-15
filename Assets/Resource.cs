@@ -28,7 +28,7 @@ public class Resource : MonoBehaviour, Damageable
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public bool hasTakenDamage { get; set; }

@@ -19,6 +19,7 @@ public class Item : ScriptableObject
     [SerializeField] private int damageAmount;
     [SerializeField] private int itemMineLevel;
     [SerializeField] private float attackWaitTime;
+    [SerializeField] private float attackRange = 1;
     [SerializeField] private float smeltTime = 0;
 
 
@@ -62,6 +63,10 @@ public class Item : ScriptableObject
     public float GetAttackWaitTime()
     {
         return attackWaitTime;
+    }
+    public float GetAttackRange()
+    {
+        return attackRange;
     }
     public float GetSmeltTime()
     {

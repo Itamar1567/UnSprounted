@@ -2075,7 +2075,7 @@ GameObject:
   - component: {fileID: 172044349}
   - component: {fileID: 172044352}
   - component: {fileID: 172044353}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Earth_Tree_V1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3854,7 +3854,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -4807,7 +4807,7 @@ GameObject:
   - component: {fileID: 600586926}
   - component: {fileID: 600586925}
   - component: {fileID: 600586924}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Rock_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6944,7 +6944,7 @@ GameObject:
   - component: {fileID: 1071826311}
   - component: {fileID: 1071826310}
   - component: {fileID: 1071826313}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Iron_Rock_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7811,7 +7811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1192863599
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8391,7 +8391,7 @@ GameObject:
   - component: {fileID: 1266479119}
   - component: {fileID: 1266479120}
   - component: {fileID: 1266479121}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11896,7 +11896,7 @@ GameObject:
   - component: {fileID: 2008431617}
   - component: {fileID: 2008431618}
   - component: {fileID: 2008431619}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
