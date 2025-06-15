@@ -1,19 +1,28 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Melee : MonoBehaviour
 {
 
-    [SerializeField] private int damage = 5;
     [SerializeField] private int handDamage = 1;
-    [SerializeField] private float attackWaitTime = 5;
-    [SerializeField] private float handAttackTime = 1;
+    [SerializeField] private int handWaitTime = 1;
+    [SerializeField] private int handRange = 1;
     [SerializeField] private InputActionReference attackAction;
     [SerializeField] private Animator anim;
+    int playerLayer;
+    int mask;
+    private int damage;    
+    private float range;
+    private float waitTime;
     private bool canAttack = true;
-    private RaycastHit2D hit;
-    private InventoryItem selectedItemRef;
+    private Movement movementRef;
+    private Dictionary<int, float> angleByDirection = new Dictionary<int, float>();
+    private HashSet<Damageable> damagedEnemies = new HashSet<Damageable>();
 
 
     //[SerializeField] private LayerMask enemyLayer;
@@ -21,6 +30,13 @@ public class Melee : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerLayer = LayerMask.NameToLayer("Damageable");
+        mask = 1 << playerLayer;
+        movementRef = GetComponent<Movement>();
+        angleByDirection[1] = -180f;
+        angleByDirection[2] = 360f;
+        angleByDirection[3] = -90f;
+        angleByDirection[4] = 90f;
 
     }
 
@@ -30,7 +46,7 @@ public class Melee : MonoBehaviour
 
         if (attackAction.action.WasPressedThisFrame() && canAttack)
         {
-
+            canAttack = false;
             Attack();
 
         }
@@ -44,39 +60,65 @@ public class Melee : MonoBehaviour
 
     private void Attack()
     {
-
-        canAttack = false;
-        //anim.SetTrigger("Attack");
-        if (UIControl.Singleton.SelectedItemInHotbarSlot() != null)
-        {
-            selectedItemRef = UIControl.Singleton.SelectedItemInHotbarSlot();
-            damage = selectedItemRef.GetDamageAmount();
-            attackWaitTime = selectedItemRef.GetTimeBetweenAttacks();
-
-        }
-        else
+        if(UIControl.Singleton.SelectedItemInHotbarSlot() == null)
         {
             damage = handDamage;
-            attackWaitTime = handAttackTime;
+            waitTime = handWaitTime;
+            range = handRange;
         }
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1);
-        foreach (Collider2D hitable in hits)
+        else 
         {
-            Damageable damageable = hitable.GetComponent<Damageable>();
-            if (damageable != null)
-            {
-                damageable.TakeDamage(damage);
-            }
-        }
+            damage = UIControl.Singleton.SelectedItemInHotbarSlot().GetDamageAmount();
+            waitTime = UIControl.Singleton.SelectedItemInHotbarSlot().GetTimeBetweenAttacks();
+            range = UIControl.Singleton.SelectedItemInHotbarSlot().GetAttackRange();
 
-        //Resets the player's ability to talk after a set time
+        }
+        float directionAngle = angleByDirection[movementRef.GetMovementDirection()];
+        //Creates multiple raycasts(3 parameter) and uses them to detect damagable objects
+        HalfCircleRayCast(transform.position, range, 15, directionAngle);
+        //Resets the player's ability to attack after a set time
         StartCoroutine(AttackTimer());
     }
 
     private IEnumerator AttackTimer()
     {
-        yield return new WaitForSeconds(attackWaitTime);
+        yield return new WaitForSeconds(waitTime);
         canAttack = true;
+    }
+
+    private void HalfCircleRayCast(Vector2 origin, float radius, int raycount, float directionAngleDegrees)
+    {
+        float halfAngle = 180f;
+        float startAngle = directionAngleDegrees - halfAngle / 2f;
+        for(int i = 0; i < raycount; i++)
+        {
+            float angle = startAngle + (halfAngle/(raycount-1)) * i;
+            Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+            RaycastHit2D hit = Physics2D.Raycast(origin, dir, radius, mask);
+            //Debug.Log(hit.collider);
+            //This piece runs over all scripts with a MonoBehaviour compenent in an object and checks if they implement the Damageable interface
+            if(hit.collider != null)
+            {                
+                foreach(var comp in hit.collider.GetComponents<MonoBehaviour>())
+                {
+                    if (comp is Damageable damageable && damagedEnemies.Contains(damageable) == false)
+                    {
+                        Debug.Log(damage + " hit");
+                        damageable.TakeDamage(15);
+                        damagedEnemies.Add(damageable);
+                        break;
+                    }    
+                }
+            }
+
+            Debug.DrawRay(origin, dir * radius, Color.red, 0.1f);
+        }
+
+        damagedEnemies.Clear();
+
+
+
+
     }
 
 }

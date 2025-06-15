@@ -15,8 +15,8 @@ TagManager:
   - Ground
   - Resource
   - Interactable
-  - 
-  - 
+  - Player
+  - Damageable
   - 
   - 
   - 

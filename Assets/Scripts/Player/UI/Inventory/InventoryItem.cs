@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 using TMPro;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class InventoryItem : MonoBehaviour, IPointerClickHandler
 {
@@ -43,6 +44,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     private float smeltTime;
     private float timeToBreak;
     private float attackWaitTime;
+    private float attackRange;
     private bool block;
     private bool interactable;
     private bool energySource;
@@ -77,6 +79,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         block = item.block;
         interactable = item.interactable;
         energySource = item.energySource;
+        attackRange = item.GetAttackRange();
         smeltTime = item.GetSmeltTime();
         SetText(count.ToString());
     }
@@ -91,6 +94,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         damageAmount = item.GetDamageAccount();
         itemMineLevel = item.GetMineLevel();
         attackWaitTime = item.GetAttackWaitTime();
+        attackRange = item.GetAttackRange();
         block = item.block;
         interactable = item.interactable;
         energySource = item.energySource;
@@ -163,6 +167,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public float GetSmeltTime()
     {
         return smeltTime;
+    }
+    public float GetAttackRange() 
+    {
+        return attackRange;
     }
     public string GetItemName()
     {
