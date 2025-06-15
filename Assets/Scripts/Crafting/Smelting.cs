@@ -1,17 +1,37 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Smelting : MonoBehaviour
 {
 
     [SerializeField] private float smeltTime = 1f;
+    [SerializeField] private Image fireImage;
+    [SerializeField] private Sprite[] sprites;
     [SerializeField] private InventorySlot smeltSlot;
     [SerializeField] private InventorySlot smeltedSlot;
     [SerializeField] private InventorySlot energySourceSlot;
+    // this value checks for any changes in sprite index and then changes the sprite, used to reduce redundancy
+    private int _spriteCurrentIndex = -1;
+    private int spriteCurrentIndex
+    {
+        get => _spriteCurrentIndex;
+
+        set
+        {
+            if (_spriteCurrentIndex != value)
+            {
+                _spriteCurrentIndex = value;
+                ChangeSprite(value);
+            }
+        }
+
+    }
     private bool isSmelting = false;
     private bool canSmelt = false;
     private Coroutine smeltCoroutineRef;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,7 +43,7 @@ public class Smelting : MonoBehaviour
     {
         //Debug.Log(smeltSlot.transform.childCount);
         //Debug.Log(isSmelting);
-        if(energySourceSlot.transform.childCount > 0 && energySourceSlot.myItem.IsEnergySource() && canSmelt == false)
+        if (energySourceSlot.transform.childCount > 0 && energySourceSlot.myItem.IsEnergySource() && canSmelt == false)
         {
             Debug.Log("Entered");
             UseEnergySource();
@@ -101,12 +121,48 @@ public class Smelting : MonoBehaviour
     {
         energySourceSlot.myItem.AddRemoveCount(-1);
         canSmelt = true;
+
         StartCoroutine(Energizing());
     }
     private IEnumerator Energizing()
     {
-        yield return new WaitForSecondsRealtime(energySourceSlot.myItem.GetSmeltTime());
+        float remainingTime = energySourceSlot.myItem.GetSmeltTime();
+        while (remainingTime > 0f)
+        {
+            float timeLeftPerecentage = remainingTime / energySourceSlot.myItem.GetSmeltTime();
+            if (timeLeftPerecentage <= 0.75f && timeLeftPerecentage > 0.50f)
+            {
+                spriteCurrentIndex = 0;
+            }
+            else if (timeLeftPerecentage <= 0.50f && timeLeftPerecentage > 0.35f)
+            {
+                spriteCurrentIndex = 1;
+
+            }
+            else if (timeLeftPerecentage <= 0.35f && timeLeftPerecentage > 0f)
+            {
+                spriteCurrentIndex = 2;
+            }
+            remainingTime -= Time.unscaledDeltaTime;
+            Debug.Log(Mathf.Round(remainingTime));
+            yield return null;
+        }
+
+        ChangeSprite(3);
+        spriteCurrentIndex = -1;
         canSmelt = false; yield break;
+    }
+
+    private void ChangeSprite(int index)
+    {
+        if (index > -1 && index < sprites.Length)
+        {
+            fireImage.sprite = sprites[index];
+        }
+        else
+        {
+            Debug.Log("index size out of bounds");
+        }
     }
 }
 
