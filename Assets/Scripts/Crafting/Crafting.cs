@@ -122,7 +122,7 @@ public class Crafting : MonoBehaviour
         {
             if (slot.transform.childCount > 0)
             {
-                Destroy(slot.transform.GetChild(0).gameObject);
+                slot.transform.GetChild(0).GetComponent<InventoryItem>().AddRemoveCount(-1);
             }
         }
     }
