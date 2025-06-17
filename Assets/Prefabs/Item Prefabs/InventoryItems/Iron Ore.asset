@@ -14,12 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 3615109535770239713, guid: d935c374556007f489cd1d32bba5737e, type: 3}
   itemTag: 0
-  itemName: ironore
+  itemName: Iron Ore
   itemID: 5
   block: 0
   interactable: 0
   equipmentPrefab: {fileID: 0}
-  healAmount: 0
+  isWeapon: 0
   damageAmount: 0
-  itemMineLevel: 0
   attackWaitTime: 0
+  attackRange: 1
+  itemMineLevel: 0
+  isTool: 0
+  toolType: 
+  energySource: 0
+  smeltTime: 0
+  healAmount: 0

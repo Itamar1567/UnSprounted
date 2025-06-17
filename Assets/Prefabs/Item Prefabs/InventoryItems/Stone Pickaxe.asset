@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 5807921338739458136, guid: a50dc97f5973624489f6b9ab577920b6, type: 3}
   itemTag: 0
-  itemName: stonepickaxe
+  itemName: Stone Pickaxe
   itemID: 10
   block: 0
   interactable: 0

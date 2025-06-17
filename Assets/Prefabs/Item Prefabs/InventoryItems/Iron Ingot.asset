@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 6669922367293318298, guid: 4416c9cdc5ec7564da60f553c1a5fd37, type: 3}
   itemTag: 0
-  itemName: ironingot
+  itemName: Iron Ingot
   itemID: 6
   block: 0
   interactable: 0

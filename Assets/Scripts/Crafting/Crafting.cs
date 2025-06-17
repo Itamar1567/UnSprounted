@@ -99,6 +99,7 @@ public class Crafting : MonoBehaviour
             {
                 // A temp string to remove all spaces from .itemName string
                 string makeValid = item.transform.GetChild(0).GetComponent<InventoryItem>().itemName.Replace(" ", "");
+                makeValid = makeValid.ToLower();
                 //Getting child 0 due to slots hosting items as their first child
                 itemInSlots += makeValid;
             }

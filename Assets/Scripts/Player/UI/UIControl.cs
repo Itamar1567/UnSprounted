@@ -1,4 +1,5 @@
-using System.Globalization;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -8,7 +9,20 @@ public class UIControl : MonoBehaviour
 
     public static UIControl Singleton;
     private bool isGamePaused = false;
-    private int hotbarIncrementer = 0;
+    private int hotbarIncrementer
+    {
+        get => _hotbarIncrementer;
+
+        set
+        {
+            if (_hotbarIncrementer != value)
+            {
+                _hotbarIncrementer = value;
+                ShowcaseSelectedHeldItemInText();
+            }
+        }
+    }
+    [SerializeField] private TMP_Text hotbarText;
     [SerializeField] private GameObject hotbarSlotsHolder;
     [SerializeField] private GameObject[] windows;
     [SerializeField] private Sprite hotbarDefaultSlotSprite;
@@ -17,6 +31,9 @@ public class UIControl : MonoBehaviour
     [SerializeField] private Transform inventorySlots;
     [SerializeField] private InputActionReference scrollAction;
     [SerializeField] private InputActionReference hotbarAction;
+    private int _hotbarIncrementer = 0;
+    private Coroutine textFadeCoroutineRef;
+
 
 
 
@@ -52,7 +69,7 @@ public class UIControl : MonoBehaviour
         }
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            if(IsWindowOpen())
+            if (IsWindowOpen())
             {
                 CloseAllWindows();
             }
@@ -63,8 +80,9 @@ public class UIControl : MonoBehaviour
         }
         if (scrollAction.action.ReadValue<Vector2>().y != 0)
         {
-            hotbarIncrementer += (int)scrollAction.action.ReadValue<Vector2>().y;
-            TraverseHotbarViaScrollWheel();
+            int tempIncrementer = hotbarIncrementer;
+            tempIncrementer += (int)scrollAction.action.ReadValue<Vector2>().y;
+            TraverseHotbarViaScrollWheel(tempIncrementer);
         }
 
         HightlightSelectedSlot(hotbarIncrementer);
@@ -96,12 +114,12 @@ public class UIControl : MonoBehaviour
             windows[windowId].SetActive(true);
             CloseAllOtherWindows(windowId);
         }
-        if(windowId == 0 || windowId == 1 || windowId == 2)
+        if (windowId == 0 || windowId == 1 || windowId == 2)
         {
             ChangeInventorySlotsParent(windowId);
         }
 
-        
+
 
     }
     //This function closes all windows except the window that was just openend
@@ -147,7 +165,7 @@ public class UIControl : MonoBehaviour
     //Returns true of any window is open and false if no windows are open
     private bool IsWindowOpen()
     {
-        for(int i = 0; i < windows.Length;i++) 
+        for (int i = 0; i < windows.Length; i++)
         {
 
             if (windows[i].activeSelf)
@@ -221,15 +239,17 @@ public class UIControl : MonoBehaviour
 
         return null;
     }
-    private void TraverseHotbarViaScrollWheel()
+    private void TraverseHotbarViaScrollWheel(int tempHotbarIncrementer)
     {
-        if (hotbarIncrementer >= hotbarSlotsHolder.transform.childCount)
+        Debug.Log(hotbarIncrementer);
+        int count = hotbarSlotsHolder.transform.childCount;
+        if (count == 0)
         {
-            hotbarIncrementer = 0;
+            return;
         }
-        if (hotbarIncrementer < 0)
+        else
         {
-            hotbarIncrementer = hotbarSlotsHolder.transform.childCount - 1;
+            hotbarIncrementer = ((tempHotbarIncrementer % count) + count) % count;
         }
     }
 
@@ -260,6 +280,40 @@ public class UIControl : MonoBehaviour
             hotbarIncrementer = number;
         }
 
+    }
+
+    private void ShowcaseSelectedHeldItemInText()
+    {
+        if (SelectedItemInHotbarSlot() != null)
+        {
+            hotbarText.text = SelectedItemInHotbarSlot().GetItemName();
+            if (textFadeCoroutineRef != null)
+            {
+                StopCoroutine(textFadeCoroutineRef);
+            }
+
+            textFadeCoroutineRef = StartCoroutine(TextFade(1f, hotbarText));
+
+        }
+    }
+
+    private IEnumerator TextFade(float fadeTime, TMP_Text textToFade)
+    {
+
+        textToFade.alpha = 1;
+        float elapsedTime = 0f;
+        float startAlpha = textToFade.alpha;
+        //Calls this while loop until elapsed time which is increased in seconds is less than fadeTime
+        while (elapsedTime < fadeTime)
+        {
+            Debug.Log(elapsedTime);
+            //Lerp returns a value between startAlpha and 0 by the percentage given in elapsedTime/fadeTime or smallNum/total or the percent of the way from startAlpha to 0f i.e 100% = 0f
+            float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / fadeTime);
+            textToFade.alpha = newAlpha;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+
+        }
     }
 
     #endregion
