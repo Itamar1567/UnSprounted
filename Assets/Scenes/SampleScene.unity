@@ -2210,8 +2210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f67a6ca97c0634f8e787e8512acfc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceRequiredTool: axe
   maxHealth: 100
+  mineLevel: 3
+  resourceRequiredTool: axe
   dropAmountRange: {x: 1, y: 5}
   droppedItems:
   - {fileID: 7657035319987991058, guid: 49174138ec75b754dbc31e713a3def72, type: 3}
@@ -2357,6 +2358,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3145607819276813545, guid: 49174138ec75b754dbc31e713a3def72, type: 3}
+      propertyPath: itemId
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7657035319987991058, guid: 49174138ec75b754dbc31e713a3def72, type: 3}
       propertyPath: m_Name
       value: Log (6)
@@ -4979,8 +4984,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f67a6ca97c0634f8e787e8512acfc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceRequiredTool: axe
   maxHealth: 100
+  mineLevel: 0
+  resourceRequiredTool: axe
   dropAmountRange: {x: 1, y: 5}
   droppedItems:
   - {fileID: 6128760663523227231, guid: 61e9d2f00b7531a40845e3f66c0f0fba, type: 3}
@@ -7080,8 +7086,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f67a6ca97c0634f8e787e8512acfc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceRequiredTool: axe
   maxHealth: 100
+  mineLevel: 0
+  resourceRequiredTool: axe
   dropAmountRange: {x: 0, y: 3}
   droppedItems: []
   damageSprites:
@@ -12255,6 +12262,7 @@ MonoBehaviour:
   handDamage: 15
   handWaitTime: 1
   handRange: 1
+  handMineLevel: 0
   attackAction: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   anim: {fileID: 1266479121}
 --- !u!114 &2008431618
