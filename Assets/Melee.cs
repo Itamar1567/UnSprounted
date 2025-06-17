@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class Melee : MonoBehaviour
 {
@@ -12,12 +9,14 @@ public class Melee : MonoBehaviour
     [SerializeField] private int handDamage = 1;
     [SerializeField] private int handWaitTime = 1;
     [SerializeField] private int handRange = 1;
+    [SerializeField] private int handMineLevel = 0;
     [SerializeField] private InputActionReference attackAction;
     [SerializeField] private Animator anim;
     int playerLayer;
     int resourceLayer;
     int mask;
-    private int damage;    
+    private int damage;
+    private int mineLevel;
     private float range;
     private float waitTime;
     private bool canAttack = true;
@@ -64,18 +63,20 @@ public class Melee : MonoBehaviour
 
     private void Attack()
     {
-        if(UIControl.Singleton.SelectedItemInHotbarSlot() == null || UIControl.Singleton.SelectedItemInHotbarSlot().IsWeapon() == false)
+        if (UIControl.Singleton.SelectedItemInHotbarSlot() == null || UIControl.Singleton.SelectedItemInHotbarSlot().IsWeapon() == false)
         {
             Debug.Log("Hand attack");
             damage = handDamage;
             waitTime = handWaitTime;
             range = handRange;
+            mineLevel = handMineLevel;
         }
-        else 
+        else
         {
             damage = UIControl.Singleton.SelectedItemInHotbarSlot().GetDamageAmount();
             waitTime = UIControl.Singleton.SelectedItemInHotbarSlot().GetTimeBetweenAttacks();
             range = UIControl.Singleton.SelectedItemInHotbarSlot().GetAttackRange();
+            mineLevel = UIControl.Singleton.SelectedItemInHotbarSlot().GetMineLevel();
             Debug.Log(damage);
 
         }
@@ -97,34 +98,51 @@ public class Melee : MonoBehaviour
     {
         float halfAngle = 180f;
         float startAngle = directionAngleDegrees - halfAngle / 2f;
-        for(int i = 0; i < raycount; i++)
+        for (int i = 0; i < raycount; i++)
         {
-            float angle = startAngle + (halfAngle/(raycount-1)) * i;
+            float angle = startAngle + (halfAngle / (raycount - 1)) * i;
             Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             RaycastHit2D hit = Physics2D.Raycast(origin, dir, radius, mask);
 
-            
+
             //This piece runs over all scripts with a MonoBehaviour compenent in an object and checks if they implement the Damageable interface
             if (hit.collider != null)
-            {                
-                foreach(var comp in hit.collider.GetComponents<MonoBehaviour>())
+            {
+                foreach (var comp in hit.collider.GetComponents<MonoBehaviour>())
                 {
                     if (comp is Damageable damageable && damagedEnemies.Contains(damageable) == false)
                     {
 
                         //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
-                        if (hit.collider.GetComponent<Resource>())
+                        if (hit.collider.GetComponent<Resource>() != null)
                         {
-                            Debug.Log("Attacked item is a resource");
-                            if(UIControl.Singleton.SelectedItemInHotbarSlot() != null && UIControl.Singleton.SelectedItemInHotbarSlot().GetToolType() == hit.collider.GetComponent<Resource>().GetResourceRequiredTool())
+                            Debug.Log("Attacked object is a resource");
+                            if (UIControl.Singleton.SelectedItemInHotbarSlot() != null)
                             {
-                                Debug.Log("Type match");
-                                damageable.TakeDamage(damage);
+                                if (UIControl.Singleton.SelectedItemInHotbarSlot().GetToolType() == hit.collider.GetComponent<Resource>().GetResourceRequiredTool())
+                                {
+                                    Debug.Log("Type match");
+                                    if (UIControl.Singleton.SelectedItemInHotbarSlot().GetMineLevel() >= hit.collider.GetComponent<Resource>().GetMineLevel())
+                                    {
+                                        Debug.Log("Level match");
+                                        damageable.TakeDamage(damage);
+                                        damagedEnemies.Add(damageable);
+                                        break;
+                                    }
+
+                                }
+
                             }
-                            else
+                            if (hit.collider.GetComponent<Resource>().GetMineLevel() == handMineLevel)
                             {
                                 damageable.TakeDamage(handDamage);
                             }
+                            else
+                            {
+                                Debug.Log("Block is level: " + hit.collider.GetComponent<Resource>().GetMineLevel());
+                                break;
+                            }
+
                         }
                         else
                         {
@@ -134,7 +152,7 @@ public class Melee : MonoBehaviour
                         Debug.Log(damage + " hit");
                         damagedEnemies.Add(damageable);
                         break;
-                    }    
+                    }
                 }
             }
 

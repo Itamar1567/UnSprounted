@@ -3,8 +3,9 @@ using UnityEngine.InputSystem.Android;
 
 public class Resource : MonoBehaviour, Damageable
 {
-    [SerializeField] private string resourceRequiredTool = "axe";
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int mineLevel = 0;
+    [SerializeField] private string resourceRequiredTool = "axe";
     [SerializeField] private Vector2 dropAmountRange;
     [SerializeField] GameObject[] droppedItems;
     [SerializeField] Sprite[] damageSprites;
@@ -54,6 +55,10 @@ public class Resource : MonoBehaviour, Damageable
         {
             Die();
         }
+    }
+    public int GetMineLevel()
+    {
+        return mineLevel;
     }
     public string GetResourceRequiredTool()
     {

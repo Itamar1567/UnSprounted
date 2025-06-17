@@ -207,7 +207,9 @@ public class Inventory : MonoBehaviour
         int childCount = hotbarSlots.Length;
         for (int i = 0; i < childCount; i++)
         {
-            if (i == positionOnHotBar)
+            if (i == 
+                -
+                positionOnHotBar)
             {
                 hotbarSlots[i].gameObject.GetComponent<Image>().color = Color.black;
                 continue;
