@@ -16,8 +16,8 @@ public class ItemsID_Correspondance
  * 3: StoneSword
  * 4: Smelter
  * 5: Iron Ore
- * 
- * 
+ * 6: Iron Ingot
+ * 7: Stone Axe
  * 
  * 
  * 

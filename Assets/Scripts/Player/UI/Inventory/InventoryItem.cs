@@ -12,6 +12,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
 
 
     public string itemName;
+    private string toolType;
     public int itemID;
     public CanvasGroup canvasGroup { get; private set; }
 
@@ -48,6 +49,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     private bool block;
     private bool interactable;
     private bool energySource;
+    private bool isWeapon;
 
     private Image itemIcon;
 
@@ -80,7 +82,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         interactable = item.interactable;
         energySource = item.energySource;
         attackRange = item.GetAttackRange();
+        isWeapon = item.isWeapon;
+        toolType = item.toolType;
         smeltTime = item.GetSmeltTime();
+
         SetText(count.ToString());
     }
     public InventoryItem InitializeOnHand(Item item)
@@ -99,6 +104,8 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         interactable = item.interactable;
         energySource = item.energySource;
         smeltTime = item.GetSmeltTime();
+        isWeapon = item.isWeapon;
+        toolType = item.toolType;
         SetText(count.ToString());
         return this;
     }
@@ -176,6 +183,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     {
         return itemName;
     }
+    public string GetToolType()
+    {
+        return toolType;
+    }
     public bool isBlock()
     {
         return block;
@@ -188,6 +199,12 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public bool IsEnergySource()
     {
         return energySource;
+    }
+
+    //Returns true if item is a weapon/tool and false for all else
+    public bool IsWeapon()
+    {
+        return isWeapon;
     }
 
     //increase or decrease count

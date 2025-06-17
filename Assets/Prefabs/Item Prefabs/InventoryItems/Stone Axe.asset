@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad93e1c51b633a04ea4c0df66938f1d8, type: 3}
-  m_Name: Stone Sword
+  m_Name: Stone Axe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 8645510945980340434, guid: 726c3887324daaf46961b9775852a1b0, type: 3}
+  sprite: {fileID: -5825250732961213246, guid: 28029d5b0952f734a9b74d248a6f5d72, type: 3}
   itemTag: 0
-  itemName: stonesword
-  itemID: 3
+  itemName: stoneaxe
+  itemID: 7
   block: 0
   interactable: 0
   equipmentPrefab: {fileID: 0}
@@ -24,8 +24,8 @@ MonoBehaviour:
   attackWaitTime: 0.7
   attackRange: 1
   itemMineLevel: 0
-  isTool: 0
-  toolType: 
+  isTool: 1
+  toolType: axe
   energySource: 0
   smeltTime: 0
   healAmount: 0

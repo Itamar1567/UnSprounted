@@ -11,16 +11,31 @@ public class Item : ScriptableObject
     public int itemID;
     public bool block;
     public bool interactable;
-    public bool energySource;
+    
 
     [Header("If the Item can be equipped")]
     public GameObject equipmentPrefab;
-    [SerializeField] private int healAmount;
-    [SerializeField] private int damageAmount;
-    [SerializeField] private int itemMineLevel;
-    [SerializeField] private float attackWaitTime;
-    [SerializeField] private float attackRange = 1;
+
+    [Header("If the item is a weapon/tool")]
+    public bool isWeapon = false;
+    [SerializeField] private int damageAmount = 0;
+    [SerializeField] private float attackWaitTime = 1f;
+    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private int itemMineLevel = 0;
+
+    [Header("If the item is a tool")]
+    public bool isTool = false;
+    public string toolType = string.Empty;
+
+
+    [Header("If the item is an energy source")]
+    public bool energySource;
     [SerializeField] private float smeltTime = 0;
+
+    [Header("If the item is interactable")]
+    [SerializeField] private int healAmount = 0;
+
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -72,4 +87,5 @@ public class Item : ScriptableObject
     {
         return smeltTime;
     }
+    
 }

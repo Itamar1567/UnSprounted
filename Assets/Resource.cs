@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem.Android;
 
 public class Resource : MonoBehaviour, Damageable
 {
+    [SerializeField] private string resourceRequiredTool = "axe";
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private Vector2 dropAmountRange;
     [SerializeField] GameObject[] droppedItems;
@@ -46,14 +48,17 @@ public class Resource : MonoBehaviour, Damageable
             animator.SetTrigger("Hit");
         }
         Debug.Log("Hit");
-        DisplayDamage();
         health -= damage;
+        DisplayDamage();
         if (health <= 0)
         {
             Die();
         }
     }
-
+    public string GetResourceRequiredTool()
+    {
+        return resourceRequiredTool;
+    }
     private void DropItems()
     {
         //an integer to switch between dropped items
@@ -91,7 +96,5 @@ public class Resource : MonoBehaviour, Damageable
                 spriteRenderer.sprite = damageSprites[1];
             }
         }
-
-
     }
 }

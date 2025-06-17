@@ -15,6 +15,7 @@ public class Melee : MonoBehaviour
     [SerializeField] private InputActionReference attackAction;
     [SerializeField] private Animator anim;
     int playerLayer;
+    int resourceLayer;
     int mask;
     private int damage;    
     private float range;
@@ -31,7 +32,9 @@ public class Melee : MonoBehaviour
     void Start()
     {
         playerLayer = LayerMask.NameToLayer("Damageable");
-        mask = 1 << playerLayer;
+        resourceLayer = LayerMask.NameToLayer("Resource");
+
+        mask = (1 << playerLayer) | (1 << resourceLayer);
         movementRef = GetComponent<Movement>();
         angleByDirection[1] = -180f;
         angleByDirection[2] = 360f;
@@ -47,6 +50,7 @@ public class Melee : MonoBehaviour
         if (attackAction.action.WasPressedThisFrame() && canAttack)
         {
             canAttack = false;
+            anim.SetTrigger("Attack");
             Attack();
 
         }
@@ -60,8 +64,9 @@ public class Melee : MonoBehaviour
 
     private void Attack()
     {
-        if(UIControl.Singleton.SelectedItemInHotbarSlot() == null)
+        if(UIControl.Singleton.SelectedItemInHotbarSlot() == null || UIControl.Singleton.SelectedItemInHotbarSlot().IsWeapon() == false)
         {
+            Debug.Log("Hand attack");
             damage = handDamage;
             waitTime = handWaitTime;
             range = handRange;
@@ -71,8 +76,10 @@ public class Melee : MonoBehaviour
             damage = UIControl.Singleton.SelectedItemInHotbarSlot().GetDamageAmount();
             waitTime = UIControl.Singleton.SelectedItemInHotbarSlot().GetTimeBetweenAttacks();
             range = UIControl.Singleton.SelectedItemInHotbarSlot().GetAttackRange();
+            Debug.Log(damage);
 
         }
+
         float directionAngle = angleByDirection[movementRef.GetMovementDirection()];
         //Creates multiple raycasts(3 parameter) and uses them to detect damagable objects
         HalfCircleRayCast(transform.position, range, 15, directionAngle);
@@ -95,16 +102,36 @@ public class Melee : MonoBehaviour
             float angle = startAngle + (halfAngle/(raycount-1)) * i;
             Vector2 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             RaycastHit2D hit = Physics2D.Raycast(origin, dir, radius, mask);
-            //Debug.Log(hit.collider);
+
+            
             //This piece runs over all scripts with a MonoBehaviour compenent in an object and checks if they implement the Damageable interface
-            if(hit.collider != null)
+            if (hit.collider != null)
             {                
                 foreach(var comp in hit.collider.GetComponents<MonoBehaviour>())
                 {
                     if (comp is Damageable damageable && damagedEnemies.Contains(damageable) == false)
                     {
+
+                        //Debug.Log(LayerMask.LayerToName(hit.collider.gameObject.layer));
+                        if (hit.collider.GetComponent<Resource>())
+                        {
+                            Debug.Log("Attacked item is a resource");
+                            if(UIControl.Singleton.SelectedItemInHotbarSlot() != null && UIControl.Singleton.SelectedItemInHotbarSlot().GetToolType() == hit.collider.GetComponent<Resource>().GetResourceRequiredTool())
+                            {
+                                Debug.Log("Type match");
+                                damageable.TakeDamage(damage);
+                            }
+                            else
+                            {
+                                damageable.TakeDamage(handDamage);
+                            }
+                        }
+                        else
+                        {
+                            damageable.TakeDamage(damage);
+                        }
+
                         Debug.Log(damage + " hit");
-                        damageable.TakeDamage(15);
                         damagedEnemies.Add(damageable);
                         break;
                     }    
