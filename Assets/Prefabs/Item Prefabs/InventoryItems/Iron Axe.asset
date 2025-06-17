@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad93e1c51b633a04ea4c0df66938f1d8, type: 3}
-  m_Name: Iron Ingot
+  m_Name: Iron Axe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 6669922367293318298, guid: 4416c9cdc5ec7564da60f553c1a5fd37, type: 3}
+  sprite: {fileID: 1310180504, guid: 28029d5b0952f734a9b74d248a6f5d72, type: 3}
   itemTag: 0
-  itemName: ironingot
-  itemID: 6
+  itemName: ironaxe
+  itemID: 8
   block: 0
   interactable: 0
   equipmentPrefab: {fileID: 0}
-  isWeapon: 0
-  damageAmount: 0
-  attackWaitTime: 0
-  attackRange: 1
-  itemMineLevel: 0
-  isTool: 0
-  toolType: 
+  isWeapon: 1
+  damageAmount: 35
+  attackWaitTime: 0.6
+  attackRange: 1.3
+  itemMineLevel: 1
+  isTool: 1
+  toolType: axe
   energySource: 0
   smeltTime: 0
   healAmount: 0

@@ -41,6 +41,13 @@ public class Crafting : MonoBehaviour
         RecipeList.Add(new Recipes { itemId = 3, itemName = "Stone Sword", ingredients = "rockrocklog" });
         RecipeList.Add(new Recipes { itemId = 4, itemName = "Smelter", ingredients = "rockrockrockrockrockrockrockrock" });
         RecipeList.Add(new Recipes { itemId = 7, itemName = "Stone Axe", ingredients = "rockrocklogrocklog" });
+        RecipeList.Add(new Recipes { itemId = 8, itemName = "Iron Axe", ingredients = "ironingotironingotlogironingotlog" });
+        RecipeList.Add(new Recipes { itemId = 9, itemName = "Iron Sword", ingredients = "ironingotirontingotlog" });
+        RecipeList.Add(new Recipes { itemId = 10, itemName = "Stone Pickaxe", ingredients = "rockrockrockloglog" });
+        RecipeList.Add(new Recipes { itemId = 11, itemName = "Iron Pickaxe", ingredients = "ironingotironingotironingotloglog" });
+
+
+
 
     }
 
@@ -87,10 +94,13 @@ public class Crafting : MonoBehaviour
         foreach (GameObject item in slots)
         {
 
+            
             if (item.transform.childCount > 0)
             {
+                // A temp string to remove all spaces from .itemName string
+                string makeValid = item.transform.GetChild(0).GetComponent<InventoryItem>().itemName.Replace(" ", "");
                 //Getting child 0 due to slots hosting items as their first child
-                itemInSlots += item.transform.GetChild(0).GetComponent<InventoryItem>().itemName;
+                itemInSlots += makeValid;
             }
             else
             {

@@ -18,6 +18,10 @@ public class ItemsID_Correspondance
  * 5: Iron Ore
  * 6: Iron Ingot
  * 7: Stone Axe
+ * 8: Iron Axe
+ * 9: Iron Sword
+ * 10: Stone Pickaxe
+ * 11: Iron Pickaxe
  * 
  * 
  * 
