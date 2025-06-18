@@ -23,7 +23,7 @@ MonoBehaviour:
   damageAmount: 25
   attackWaitTime: 0.7
   attackRange: 1
-  itemMineLevel: 0
+  itemMineLevel: 1
   isTool: 1
   toolType: pickaxe
   energySource: 0

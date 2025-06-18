@@ -23,7 +23,7 @@ MonoBehaviour:
   damageAmount: 35
   attackWaitTime: 0.6
   attackRange: 1.3
-  itemMineLevel: 1
+  itemMineLevel: 2
   isTool: 1
   toolType: axe
   energySource: 0

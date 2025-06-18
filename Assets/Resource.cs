@@ -39,6 +39,7 @@ public class Resource : MonoBehaviour, Damageable
     public void Die()
     {
         DropItems();
+        Debug.Log("Destroyed");
         Destroy(gameObject);
     }
 
@@ -50,11 +51,11 @@ public class Resource : MonoBehaviour, Damageable
         }
         Debug.Log("Hit");
         health -= damage;
-        DisplayDamage();
         if (health <= 0)
         {
             Die();
         }
+        DisplayDamage();
     }
     public int GetMineLevel()
     {
@@ -74,12 +75,11 @@ public class Resource : MonoBehaviour, Damageable
             GameObject item_1 = Instantiate(droppedItems[j], transform.position, Quaternion.identity);
             if (droppedItems.Length > 1 && i == 3)
             {
-                j++;
+                if(j < droppedItems.Length)
+                {
+                    j++;
+                }    
                 GameObject item_2 = Instantiate(droppedItems[j], transform.position, Quaternion.identity);
-            }
-            if (j > droppedItems.Length)
-            {
-                j--;
             }
         }
     }
@@ -94,7 +94,7 @@ public class Resource : MonoBehaviour, Damageable
         {
             if (healthPercent <= 0.5f && healthPercent > 0.3f)
             {
-                spriteRenderer.sprite = damageSprites[0];
+               spriteRenderer.sprite = damageSprites[0];
             }
             else if (healthPercent <= 0.3f)
             {
