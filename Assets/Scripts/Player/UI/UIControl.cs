@@ -22,8 +22,10 @@ public class UIControl : MonoBehaviour
             }
         }
     }
+    [SerializeField] Vector2 tooltipScreenOffset = new Vector2();
     [SerializeField] private TMP_Text hotbarText;
     [SerializeField] private GameObject hotbarSlotsHolder;
+    [SerializeField] private GameObject tooltip;
     [SerializeField] private GameObject[] windows;
     [SerializeField] private Sprite hotbarDefaultSlotSprite;
     [SerializeField] private Sprite hotbarHighlightedSlotSprite;
@@ -63,6 +65,10 @@ public class UIControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //Set the tooltip position as the mouse position
+        tooltip.transform.position = Mouse.current.position.ReadValue() + tooltipScreenOffset;
+
         if (Keyboard.current.iKey.wasPressedThisFrame)
         {
             OpenWidow(0);
@@ -103,6 +109,7 @@ public class UIControl : MonoBehaviour
         Debug.Log("Opening...");
         if (windows[windowId].activeSelf)
         {
+            HideTooltip();
             GameObject window = windows[windowId];
             CloseActiveWindow(window);
             Time.timeScale = 1.0f;
@@ -318,7 +325,20 @@ public class UIControl : MonoBehaviour
 
     #endregion
 
-    #region Smelter
+    #region Tooltip
+
+    public void ShowTooltip(string name)
+    {
+        tooltip.gameObject.SetActive(true);
+        tooltip.transform.GetChild(0).GetComponent<TMP_Text>().text = name;
+    }
+
+    public void HideTooltip()
+    {
+        tooltip.gameObject.SetActive(false);
+        tooltip.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
+
+    }
 
     #endregion
 }

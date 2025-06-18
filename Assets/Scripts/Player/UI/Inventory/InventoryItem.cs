@@ -229,4 +229,19 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     {
         virtualCount += amount; 
     }
+
+    public void CallShowTooltip()
+    {
+        if(UIControl.Singleton != null)
+        {
+            UIControl.Singleton.ShowTooltip(itemName);
+        }
+    }
+    public void CallHideTooltip()
+    {
+        if(UIControl.Singleton != null) 
+        {
+            UIControl.Singleton.HideTooltip();
+        }
+    }
 }
