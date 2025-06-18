@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -38,54 +37,62 @@ public class WorldInteraction : MonoBehaviour
         mousePos = mainCam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Indicator.transform.position = mousePos;
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-        if (hit.collider != null)
+        //Tilemap checks only if no UI windows are open
+        if (UIControl.Singleton.IsWindowOpen() == false)
         {
-            layerName = LayerMask.LayerToName(hit.collider.gameObject.layer);
-
-
-
-            if (LevelManager.Singleton.GetTileMapByLayerName(layerName) != null)
+            if (hit.collider != null)
             {
-                tilemap = LevelManager.Singleton.GetTileMapByLayerName(layerName);
-                Vector3Int cellPos = tilemap.WorldToCell(mousePos);
-                Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPos);
-                Indicator.transform.position = cellCenter;
-                Indicator.SetActive(true);
-                //Debug.Log(tilemap);
-            }
-            else
-            {
-                Indicator.SetActive(false);
-            }
+                layerName = LayerMask.LayerToName(hit.collider.gameObject.layer);
 
-            if (Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                PlaceBlock();
-            }
 
-            if (layerName == "Interactable")
-            {
-                //Crafting table
-                if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 2)
+
+                if (LevelManager.Singleton.GetTileMapByLayerName(layerName) != null)
                 {
-                    if(interactAction.action.WasPressedThisFrame())
-                    {
-                        Debug.Log("Fafaff");
-                        UIControl.Singleton.OpenWidow(1);
-                    }
+                    tilemap = LevelManager.Singleton.GetTileMapByLayerName(layerName);
+                    Vector3Int cellPos = tilemap.WorldToCell(mousePos);
+                    Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPos);
+                    Indicator.transform.position = cellCenter;
+                    Indicator.SetActive(true);
+                    //Debug.Log(tilemap);
                 }
-                //Smelter
-                if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 4)
+                else
                 {
-                    if (interactAction.action.WasPressedThisFrame())
+                    Indicator.SetActive(false);
+                }
+
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    PlaceBlock();
+                }
+
+                if (layerName == "Interactable")
+                {
+                    //Crafting table
+                    if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 2)
                     {
-                        UIControl.Singleton.OpenWidow(2);
+                        if (interactAction.action.WasPressedThisFrame())
+                        {
+                            Debug.Log("Fafaff");
+                            UIControl.Singleton.OpenWidow(1);
+                        }
+                    }
+                    //Smelter
+                    if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 4)
+                    {
+                        if (interactAction.action.WasPressedThisFrame())
+                        {
+                            UIControl.Singleton.OpenWidow(2);
+                        }
                     }
                 }
             }
         }
+        else
+        {
+            Indicator.SetActive(false);
+        }
 
-        
+
     }
 
 
@@ -112,7 +119,7 @@ public class WorldInteraction : MonoBehaviour
             }
         }
 
-        
+
 
     }
 

@@ -122,6 +122,22 @@ public class UIControl : MonoBehaviour
 
 
     }
+
+    //Returns true of any window is open and false if no windows are open
+    public bool IsWindowOpen()
+    {
+        for (int i = 0; i < windows.Length; i++)
+        {
+
+            if (windows[i].activeSelf)
+            {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
     //This function closes all windows except the window that was just openend
     private void CloseAllOtherWindows(int windowId)
     {
@@ -160,22 +176,6 @@ public class UIControl : MonoBehaviour
         isGamePaused = false;
         window.SetActive(false);
         Debug.Log(window.name);
-    }
-
-    //Returns true of any window is open and false if no windows are open
-    private bool IsWindowOpen()
-    {
-        for (int i = 0; i < windows.Length; i++)
-        {
-
-            if (windows[i].activeSelf)
-            {
-                return true;
-            }
-
-        }
-
-        return false;
     }
 
     private void OnEnable()

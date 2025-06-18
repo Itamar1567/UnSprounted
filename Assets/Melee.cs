@@ -46,14 +46,17 @@ public class Melee : MonoBehaviour
     void Update()
     {
 
-        if (attackAction.action.WasPressedThisFrame() && canAttack)
+        //Attack only works if no windows are open
+        if (UIControl.Singleton.IsWindowOpen() == false)
         {
-            canAttack = false;
-            anim.SetTrigger("Attack");
-            Attack();
+            if (attackAction.action.WasPressedThisFrame() && canAttack)
+            {
+                canAttack = false;
+                anim.SetTrigger("Attack");
+                Attack();
 
+            }
         }
-
     }
 
     private void OnDrawGizmosSelected()
