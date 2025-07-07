@@ -22,8 +22,8 @@ public class ItemsID_Correspondance
  * 9: Iron Sword
  * 10: Stone Pickaxe
  * 11: Iron Pickaxe
- * 
- * 
+ * 12: Coal
+ * 13: Torch
  * 
  * 
  * 

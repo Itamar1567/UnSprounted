@@ -46,6 +46,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     private float timeToBreak;
     private float attackWaitTime;
     private float attackRange;
+    private float illuminance;
     private bool block;
     private bool interactable;
     private bool energySource;
@@ -84,6 +85,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         attackRange = item.GetAttackRange();
         isWeapon = item.isWeapon;
         toolType = item.toolType;
+        illuminance = item.GetIlluminance();
         smeltTime = item.GetSmeltTime();
 
         SetText(count.ToString());
@@ -106,6 +108,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         smeltTime = item.GetSmeltTime();
         isWeapon = item.isWeapon;
         toolType = item.toolType;
+        illuminance = item.GetIlluminance();
         SetText(count.ToString());
         return this;
     }
@@ -179,6 +182,10 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     {
         return attackRange;
     }
+    public float GetIlluminance()
+    {
+        return illuminance;
+    }
     public string GetItemName()
     {
         return itemName;
@@ -244,4 +251,5 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
             UIControl.Singleton.HideTooltip();
         }
     }
+
 }

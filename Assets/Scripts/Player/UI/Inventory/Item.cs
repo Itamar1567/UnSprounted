@@ -35,6 +35,9 @@ public class Item : ScriptableObject
     [Header("If the item is interactable")]
     [SerializeField] private int healAmount = 0;
 
+    [Header("If the item imits light")]
+    [SerializeField] float illuminance = 0;
+
 
 
 
@@ -87,5 +90,10 @@ public class Item : ScriptableObject
     {
         return smeltTime;
     }
-    
+    public float GetIlluminance()
+    {
+        return illuminance;
+    }
+
+
 }

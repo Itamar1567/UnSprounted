@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad93e1c51b633a04ea4c0df66938f1d8, type: 3}
+  m_Name: Torch
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -8553596595128423742, guid: 2ee44939a6580c946bf02bca9403d23c, type: 3}
+  itemTag: 0
+  itemName: Torch
+  itemID: 13
+  block: 1
+  interactable: 0
+  equipmentPrefab: {fileID: 0}
+  isWeapon: 0
+  damageAmount: 0
+  attackWaitTime: 0
+  attackRange: 1
+  itemMineLevel: 0
+  isTool: 0
+  toolType: 
+  energySource: 0
+  smeltTime: 0
+  healAmount: 0
+  illuminance: 3

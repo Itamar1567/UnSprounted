@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 public class WorldInteraction : MonoBehaviour
@@ -22,12 +23,14 @@ public class WorldInteraction : MonoBehaviour
     private Vector2 mousePos;
     private InventoryItem inventoryItemRef;
     private Tilemap tilemap;
+    private Light2D playerLight;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         BlocksList.Add(new Block { itemId = 2, blockName = "CraftingTable", block = blockObjects[0] });
         BlocksList.Add(new Block { itemId = 4, blockName = "Smelter", block = blockObjects[1] });
+        playerLight = GetComponent<Light2D>();
 
     }
 
@@ -90,6 +93,18 @@ public class WorldInteraction : MonoBehaviour
         {
             Indicator.SetActive(false);
         }
+        if(UIControl.Singleton.SelectedItemInHotbarSlot())
+        {
+            playerLight.pointLightInnerRadius = UIControl.Singleton.SelectedItemInHotbarSlot().GetIlluminance();
+            playerLight.pointLightOuterRadius = UIControl.Singleton.SelectedItemInHotbarSlot().GetIlluminance() + 3;
+        }
+        else
+        {
+            playerLight.pointLightInnerRadius = 0;
+            playerLight.pointLightOuterRadius = 0;
+        }
+
+
 
 
     }
