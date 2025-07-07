@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class Smelting : MonoBehaviour
     [SerializeField] private float smeltTime = 1f;
     [SerializeField] private Image fireImage;
     [SerializeField] private Sprite[] sprites;
+    [SerializeField] private Animator anim;
     [SerializeField] private InventorySlot smeltSlot;
     [SerializeField] private InventorySlot smeltedSlot;
     [SerializeField] private InventorySlot energySourceSlot;
@@ -35,12 +37,14 @@ public class Smelting : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //anim.SetBool("Active", true);
+
         //Debug.Log(smeltSlot.transform.childCount);
         //Debug.Log(isSmelting);
         if (energySourceSlot.transform.childCount > 0 && energySourceSlot.myItem.IsEnergySource() && canSmelt == false)
@@ -75,6 +79,7 @@ public class Smelting : MonoBehaviour
     private void Smelt()
     {
         Debug.Log("Smelting...");
+        //Debug.Log(anim.GetBool("Active"));
         isSmelting = true;
         smeltCoroutineRef = StartCoroutine(SmeltSequence());
     }
@@ -101,6 +106,7 @@ public class Smelting : MonoBehaviour
         yield return new WaitForSecondsRealtime(smeltTime);
 
         Debug.Log("Entred");
+        //anim.SetBool("Active", false);
         isSmelting = false;
 
         Inventory.Singleton.SpawnInventoryItemAtPosition(smeltedSlot, _newItem);

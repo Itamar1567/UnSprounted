@@ -40,12 +40,11 @@ public class WorldInteraction : MonoBehaviour
         //Tilemap checks only if no UI windows are open
         if (UIControl.Singleton.IsWindowOpen() == false)
         {
+            Debug.Log(layerName);
             if (hit.collider != null)
             {
                 layerName = LayerMask.LayerToName(hit.collider.gameObject.layer);
-
-
-
+                
                 if (LevelManager.Singleton.GetTileMapByLayerName(layerName) != null)
                 {
                     tilemap = LevelManager.Singleton.GetTileMapByLayerName(layerName);
