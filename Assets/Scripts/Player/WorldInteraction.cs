@@ -40,7 +40,7 @@ public class WorldInteraction : MonoBehaviour
         //Tilemap checks only if no UI windows are open
         if (UIControl.Singleton.IsWindowOpen() == false)
         {
-            Debug.Log(layerName);
+            //Debug.Log(layerName);
             if (hit.collider != null)
             {
                 layerName = LayerMask.LayerToName(hit.collider.gameObject.layer);
