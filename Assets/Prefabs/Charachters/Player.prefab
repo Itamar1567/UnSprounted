@@ -313,6 +313,8 @@ MonoBehaviour:
   blockObjects:
   - {fileID: 7657035319987991058, guid: 3ddfc13fb7bd87349bf0a6bed158350a, type: 3}
   - {fileID: 7657035319987991058, guid: 5bd4aed4e46d01746b51748233bf0330, type: 3}
+  - {fileID: 3999058585257336159, guid: 0e01953c80a4d774abb5be84a639e595, type: 3}
+  - {fileID: 6128760663523227231, guid: fcb566dcdb5a16e45987b8398b7ac957, type: 3}
   interactAction: {fileID: 1781555164194001046, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &5858746190556863400
 GameObject:

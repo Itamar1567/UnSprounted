@@ -27,7 +27,10 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);
+        GameManager.Singleton.ResetDay();
+        health = maxHealth;
+        UIControl.Singleton.UpdateHealthBar(maxHealth);
+        GetComponent<Movement>().Spawn();
     }
 
     public int GetHealth()

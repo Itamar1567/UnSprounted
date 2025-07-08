@@ -21,7 +21,6 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         moveDirection = movementAction.action.ReadValue<Vector2>();
         rb = GetComponent<Rigidbody2D>();    
     }
@@ -70,4 +69,10 @@ public class Movement : MonoBehaviour
     {
         return moveDirection1DInterpreter;
     }
+
+    public void Spawn()
+    {
+        transform.position = GameManager.Singleton.GetPlayerSpawnPoint();
+    }
+    
 }

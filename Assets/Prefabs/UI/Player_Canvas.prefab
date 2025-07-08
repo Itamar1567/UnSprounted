@@ -1662,6 +1662,7 @@ MonoBehaviour:
   - {fileID: -1497388607, guid: 84eac2e01881ee44c9e92e6fd3fc3850, type: 3}
   - {fileID: -283368598, guid: 84eac2e01881ee44c9e92e6fd3fc3850, type: 3}
   - {fileID: -796180256, guid: 84eac2e01881ee44c9e92e6fd3fc3850, type: 3}
+  anim: {fileID: 0}
   smeltSlot: {fileID: 6508724537147068108}
   smeltedSlot: {fileID: 5984027874060652426}
   energySourceSlot: {fileID: 759115700591625473}
@@ -3574,6 +3575,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b12549f5ddec692419e80dc3a925c258, type: 2}
   - {fileID: 11400000, guid: dbb5c9609549a6946a8884fabdb7c88e, type: 2}
   - {fileID: 11400000, guid: aeae3871b0205074d82502e4fb6764b8, type: 2}
+  - {fileID: 11400000, guid: 2c9fa64e48a5d0b40b6fdd5f79ca09f3, type: 2}
+  - {fileID: 11400000, guid: b1d2b0f75efffb24fa95916c8c92e024, type: 2}
+  - {fileID: 11400000, guid: e4c07fbf3d10edc4bb5781f4221cb259, type: 2}
   mockItemForNullCases: {fileID: 5903593512812069133, guid: 6851edf957479474b90a440a818626c2, type: 3}
   inventoryCraftingResaultSlot: {fileID: 2865685508783745921}
   inventorySlots:

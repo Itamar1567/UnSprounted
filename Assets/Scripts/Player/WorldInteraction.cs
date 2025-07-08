@@ -30,6 +30,8 @@ public class WorldInteraction : MonoBehaviour
     {
         BlocksList.Add(new Block { itemId = 2, blockName = "CraftingTable", block = blockObjects[0] });
         BlocksList.Add(new Block { itemId = 4, blockName = "Smelter", block = blockObjects[1] });
+        BlocksList.Add(new Block { itemId = 13, blockName = "Torch", block = blockObjects[2] });
+        BlocksList.Add(new Block { itemId = 14, blockName = "Bed", block = blockObjects[3] });
         playerLight = GetComponent<Light2D>();
 
     }
@@ -86,6 +88,21 @@ public class WorldInteraction : MonoBehaviour
                             UIControl.Singleton.OpenWidow(2);
                         }
                     }
+                    if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 14)
+                    {
+                        if(interactAction.action.WasPressedThisFrame())
+                        {
+                            if(DayCycle.Singleton.isDay == false)
+                            {
+                                hit.collider.GetComponent<Bed>().SetAsPlayerSpawn();
+                                GameManager.Singleton.ResetDay();
+                            }
+                            else
+                            {
+                                Debug.Log("Can only sleep at night");
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -132,10 +149,6 @@ public class WorldInteraction : MonoBehaviour
                 }
             }
         }
-
-
-
     }
-
     #endregion
 }

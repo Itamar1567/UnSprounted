@@ -5,14 +5,25 @@ using UnityEngine.Rendering.Universal;
 
 public class DayCycle : MonoBehaviour
 {
-    private float dayEnd = 1200f;
+    public static DayCycle Singleton;
+    private readonly float dayEnd = 1200f;
+    private readonly float nightLightIntensity = 0.3f;
+    private readonly float dayLightIntensity = 1f;
+    public bool isDay = true;
     private float timeTracker = 0;
     private bool isTwilight = false;
-    private bool isDay = true;
     private Light2D sun;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if(Singleton == null)
+        {
+            Singleton = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         sun = GetComponent<Light2D>();
         isDay = sun.intensity >= 1;
     }
@@ -41,15 +52,21 @@ public class DayCycle : MonoBehaviour
         sun.intensity = dayTime;
     }    
 
-    public void ResetDay()
+    public void SetDay()
     {
         timeTracker = 0f;
         isDay = true;
         isTwilight = false;
-        SetDayTime(1f);
+        SetDayTime(dayLightIntensity);
     }
 
-
+    public void SetNight()
+    {
+        timeTracker = 0f;
+        isDay = false;
+        isTwilight = false;
+        SetDayTime(nightLightIntensity);
+    }
     private IEnumerator Twilight()
     {
         // If it is day changed light amount to night and vise versa
