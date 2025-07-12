@@ -233,6 +233,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4689077314524720296, guid: b379eb1e9cfb67345ba8bedd6072dd0b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5201770958146878058, guid: b379eb1e9cfb67345ba8bedd6072dd0b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1825,6 +1829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7551b339735228f4884af1223bdb5fb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDay: 1
 --- !u!1001 &1196866528
 PrefabInstance:
   m_ObjectHideFlags: 0

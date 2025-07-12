@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem.Android;
+using UnityEngine.InputSystem;
 
 public class Resource : MonoBehaviour, Damageable
 {

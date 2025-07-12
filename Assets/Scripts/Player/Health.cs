@@ -12,25 +12,28 @@ public class Health : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UIControl.Singleton.UpdateHealthBarMaxValue(maxHealth);
+        UIControl.Singleton?.UpdateHealthBarMaxValue(maxHealth);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Keyboard.current.qKey.wasPressedThisFrame)
+        if (Keyboard.current.qKey.wasPressedThisFrame)
         {
             TakeDamage(15);
-        }    
+        }
     }
 
 
     public void Die()
     {
-        GameManager.Singleton.ResetDay();
+
+        GameManager.Singleton?.ResetDay();
         health = maxHealth;
-        UIControl.Singleton.UpdateHealthBar(maxHealth);
+        UIControl.Singleton?.UpdateHealthBar(maxHealth);
         GetComponent<Movement>().Spawn();
+
+
     }
 
     public int GetHealth()
@@ -48,7 +51,8 @@ public class Health : MonoBehaviour
     public void SetMaxHealth(int h)
     {
         maxHealth = h;
-        UIControl.Singleton.UpdateHealthBarMaxValue(maxHealth);
+        UIControl.Singleton?.UpdateHealthBarMaxValue(maxHealth);
+
     }
     public void IncreaseHealth(int amount)
     {
@@ -64,13 +68,14 @@ public class Health : MonoBehaviour
         {
             health += amount;
         }
-        UIControl.Singleton.UpdateHealthBar(health);
+        UIControl.Singleton?.UpdateHealthBar(health);
+
 
     }
     public void TakeDamage(int damage)
     {
         health -= damage;
-        UIControl.Singleton.UpdateHealthBar(health);
+        UIControl.Singleton?.UpdateHealthBar(health);
         if (health <= 0)
         {
             health = 0;
