@@ -99,6 +99,7 @@ public class WorldInteraction : MonoBehaviour
                             }
                             else
                             {
+                                hit.collider.GetComponent<Bed>().SetAsPlayerSpawn();
                                 Debug.Log("Can only sleep at night");
                             }
                         }
