@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, Damageable
 {
 
     [SerializeField] private int health = 100;
     [SerializeField] private int maxHealth = 100;
 
-
+    public bool hasTakenDamage { get; set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

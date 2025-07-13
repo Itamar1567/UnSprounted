@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, Damageable
 {
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int health = 100;
-    [SerializeField] private int damage = 15;
-    [SerializeField] private int pushForce = 50;
-    [SerializeField] private float attackWaitTime = 1f;
-    [SerializeField] private float chaseDistance = 5f;
+    [SerializeField] protected int maxHealth = 100;
+    [SerializeField] protected int health = 100;
+    [SerializeField] protected int damage = 15;
+    [SerializeField] protected int pushForce = 50;
+    [SerializeField] protected float attackWaitTime = 1f;
+    [SerializeField] protected float chaseDistance = 5f;
 
-    private bool canAttack = true;
-    private Animator animator;
-    private AIPath ai;
-    private AIDestinationSetter destinationSetter;
+    protected bool canAttack = true;
+    protected Animator animator;
+    protected AIPath ai;
+    protected AIDestinationSetter destinationSetter;
 
     protected virtual void Start()
     {
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour, Damageable
     {
         if (ai.reachedDestination)
         {
-            Attack();
+            //Attack();
         }
     }
     private void Update()
@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour, Damageable
     }
     protected virtual void MoveAnimations()
     {
-        Debug.Log(ai.velocity);
+        //Debug.Log(ai.velocity);
         if (ai.canMove)
         {
             animator.SetBool("Walk", true);
