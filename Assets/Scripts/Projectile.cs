@@ -68,10 +68,11 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject);
         //Cannot hit self or ground(Layer: 6)
         if(collision.gameObject != shotBy && collision.gameObject.layer != 6)
         {
-            Debug.Log(collision.gameObject);
+            //Debug.Log(collision.gameObject);
             PushTarget();
             DamageTarget(collision);
             Destroy(gameObject);

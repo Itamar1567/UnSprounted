@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 2174112974547017722}
   - component: {fileID: 7316044245448760068}
   - component: {fileID: 6147549312762601560}
-  - component: {fileID: 4165424418956437750}
   - component: {fileID: 6374905638060484113}
+  - component: {fileID: 566062268248689036}
   m_Layer: 10
   m_Name: Zombie
   m_TagString: Untagged
@@ -213,24 +213,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.42105263
---- !u!114 &4165424418956437750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376909753265864167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f219d7a1d60961245b87ae49301e5752, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 0
-  damage: 15
-  pushForce: 50
-  attackWaitTime: 1
-  chaseDistance: 5
 --- !u!95 &6374905638060484113
 Animator:
   serializedVersion: 7
@@ -253,3 +235,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &566062268248689036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376909753265864167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b77d0d98cf74874ebb9f729d2a8e51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  health: 100
+  damage: 15
+  pushForce: 50
+  attackWaitTime: 1
+  chaseDistance: 5

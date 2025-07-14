@@ -23,25 +23,11 @@ public class Enemy : MonoBehaviour, Damageable
         if (GetComponent<AIDestinationSetter>() != null) { destinationSetter = GetComponent<AIDestinationSetter>(); } else { Debug.Log("Could not find 'AIDestinationSetter Component'"); }
         health = maxHealth;
     }
-    private void FixedUpdate()
-    {
-        if (ai.reachedDestination)
-        {
-            //Attack();
-        }
-    }
-    private void Update()
-    {
-        MoveAnimations();
-        Chase();
-    }
     public bool hasTakenDamage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
     public virtual void Die()
     {
         Destroy(gameObject);
     }
-
     public virtual void TakeDamage(int damage)
     {
         Debug.Log("Took damage");
@@ -49,7 +35,15 @@ public class Enemy : MonoBehaviour, Damageable
         if (health <= 0)
         {
             health = 0;
-            Die();
+            if (animator != null)
+            {
+                Debug.Log("Died");
+                animator.SetTrigger("Die");
+            }
+            else
+            {
+                Die();
+            }
         }
     }
 
@@ -113,4 +107,7 @@ public class Enemy : MonoBehaviour, Damageable
             }
         }
     }
+    public virtual void SetHealth(int h) { health = h; }
+
+    public virtual int GetHealth() { return health; }
 }

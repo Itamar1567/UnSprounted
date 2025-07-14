@@ -35,6 +35,10 @@ public class Skeleton : Enemy
     {
         base.TakeDamage(damage);
     }
+    public override void Die()
+    {
+        base.Die();
+    }
     protected override void Attack()
     {
         Debug.LogWarning("Attack() was called!\n" + System.Environment.StackTrace);
@@ -45,6 +49,7 @@ public class Skeleton : Enemy
         //Debug.Log(targetDir);
         arrow.GetComponent<Projectile>().SetTarget(destinationSetter.target.gameObject);
         arrow.GetComponent<Projectile>().SetDirection(snappedDirection);
+        arrow.GetComponent<Projectile>().SetShotBy(gameObject);
         arrow.GetComponent<Projectile>().FlyToTarget();
 
     }

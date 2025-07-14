@@ -64,7 +64,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
 
     public void Initialize(Item item, InventorySlot parent)
     {
-        Debug.Log("Adada");
+        //Debug.Log("Adada");
         if(itemIcon == null)
         {
             itemIcon = GetComponent<Image>();
