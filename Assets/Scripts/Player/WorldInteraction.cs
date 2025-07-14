@@ -90,7 +90,7 @@ public class WorldInteraction : MonoBehaviour
         if(UIControl.Singleton.SelectedItemInHotbarSlot())
         {
             playerLight.pointLightInnerRadius = UIControl.Singleton.SelectedItemInHotbarSlot().GetIlluminance();
-            playerLight.pointLightOuterRadius = UIControl.Singleton.SelectedItemInHotbarSlot().GetIlluminance() + 3;
+            playerLight.pointLightOuterRadius = UIControl.Singleton.SelectedItemInHotbarSlot().GetIlluminance() * 1.5f;
         }
         else
         {

@@ -231,7 +231,7 @@ MonoBehaviour:
   damage: 15
   pushForce: 50
   attackWaitTime: 1
-  chaseDistance: 5
+  chaseDistance: 7
   shootPoint: {fileID: 4690607647884324279}
   projectile: {fileID: 4352769894023186138, guid: 8112a9ee0cca7094fb8b3c95629e8fbb, type: 3}
 --- !u!95 &7734658284454536809

@@ -77,7 +77,7 @@ public class Skeleton : Enemy
     {
         Vector2 faceDirection = (destinationSetter.target.position - ai.position).normalized;
         Vector2 snappedDirection = new Vector2(Mathf.Round(faceDirection.x), Mathf.Round(faceDirection.y));
-        Debug.Log(snappedDirection);
+        //Debug.Log(snappedDirection);
         animator.SetFloat("facingX", snappedDirection.x);
         animator.SetFloat("facingY", snappedDirection.y);
         shootPoint.transform.localPosition = snappedDirection * 0.5f;

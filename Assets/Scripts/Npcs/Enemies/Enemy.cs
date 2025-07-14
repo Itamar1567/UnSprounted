@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour, Damageable
         if (GetComponent<Animator>() != null) { animator = GetComponent<Animator>(); } else { Debug.Log("Could not find 'Animator Component'"); }
         if (GetComponent<AIPath>() != null) { ai = GetComponent<AIPath>(); } else { Debug.Log("Could not find 'AIPath Component'"); }
         if (GetComponent<AIDestinationSetter>() != null) { destinationSetter = GetComponent<AIDestinationSetter>(); } else { Debug.Log("Could not find 'AIDestinationSetter Component'"); }
+        SetTarget(GameObject.FindWithTag("Player").transform);
         health = maxHealth;
     }
     public bool hasTakenDamage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
@@ -108,6 +109,10 @@ public class Enemy : MonoBehaviour, Damageable
         }
     }
     public virtual void SetHealth(int h) { health = h; }
-
+    public virtual void SetTarget(Transform t) { destinationSetter.target = t; }
     public virtual int GetHealth() { return health; }
+
+    public virtual Transform GetTarget() { return destinationSetter.target;}
+
+    
 }

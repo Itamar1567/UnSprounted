@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
     }
     void Start()
     {
-
+        CorrectSpriteOrientation();
     }
 
     // Update is called once per frame
@@ -45,32 +45,44 @@ public class Projectile : MonoBehaviour
 
     public virtual void PushTarget()
     {
-        if (target == null && target.GetComponent<Rigidbody2D>())
+        if (target != null)
         {
             Rigidbody2D targetRigidBody = target.GetComponent<Rigidbody2D>();
             if (targetRigidBody == null) { Debug.Log("Returned null"); return; }
+            Debug.Log("Entered");
             Vector2 targetDirection = (target.transform.position - transform.position).normalized;
             targetRigidBody.AddForce(targetDirection * pushForce, ForceMode2D.Impulse);
         }
     }
     protected virtual void DamageTarget(Collider2D collidedWith)
     {
-        foreach(var comp in collidedWith.GetComponents<MonoBehaviour>())
+        foreach (var comp in collidedWith.GetComponents<MonoBehaviour>())
         {
-            if(comp is Damageable damageable)
+            if (comp is Damageable damageable)
             {
-                if(comp.CompareTag("Player"))
+                if (comp.CompareTag("Player"))
                 {
                     damageable.TakeDamage(damage);
                 }
             }
         }
     }
+
+    protected virtual void CorrectSpriteOrientation()
+    {
+        if (target != null)
+        {
+            Debug.Log("sprite orientation called");
+            Vector2 targetDirection = target.transform.position - transform.position;
+            float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg + 90;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.gameObject);
         //Cannot hit self or ground(Layer: 6)
-        if(collision.gameObject != shotBy && collision.gameObject.layer != 6)
+        if (collision.gameObject != shotBy && collision.gameObject.layer != 6)
         {
             //Debug.Log(collision.gameObject);
             PushTarget();

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Pathfinding;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 using System.Collections;
@@ -14,7 +15,6 @@ public class EnemyTest
         enemy.TakeDamage(50);
         Assert.AreEqual(expected: 50, actual: enemy.GetHealth());
     }
-
     [UnityTest]
     public IEnumerator DieTest()
     {
@@ -25,4 +25,6 @@ public class EnemyTest
         yield return null;
         Assert.IsTrue(enemy == null);
     }
+
+    
 }
