@@ -24,7 +24,7 @@ public class ItemsID_Correspondance
  * 11: Iron Pickaxe
  * 12: Coal
  * 13: Torch
- * 
+ * 14: Bed
  * 
  * 
  * 

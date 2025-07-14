@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 56595620680999237}
   - component: {fileID: -7739303360383454938}
   - component: {fileID: 4857754601373149346}
+  - component: {fileID: 5789600821796425554}
   m_Layer: 8
   m_Name: Smelter
   m_TagString: Untagged
@@ -170,3 +171,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5789600821796425554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657035319987991058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c73e8d9bcba6d4d9eb15b6bf729089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

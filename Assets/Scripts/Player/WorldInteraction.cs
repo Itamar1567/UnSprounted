@@ -71,37 +71,13 @@ public class WorldInteraction : MonoBehaviour
 
                 if (layerName == "Interactable")
                 {
-                    //Crafting table
-                    if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 2)
+                    if (hit.collider.GetComponent<Interactable>())
                     {
-                        if (interactAction.action.WasPressedThisFrame())
+                        Interactable interactable = hit.collider.GetComponent<Interactable>();
+
+                        if (interactAction.action.WasPressedThisFrame() && interactable != null)
                         {
-                            Debug.Log("Fafaff");
-                            UIControl.Singleton.OpenWidow(1);
-                        }
-                    }
-                    //Smelter
-                    if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 4)
-                    {
-                        if (interactAction.action.WasPressedThisFrame())
-                        {
-                            UIControl.Singleton.OpenWidow(2);
-                        }
-                    }
-                    if (hit.collider.GetComponent<BlockIdentifier>().GetItemId() == 14)
-                    {
-                        if(interactAction.action.WasPressedThisFrame())
-                        {
-                            if(DayCycle.Singleton.isDay == false)
-                            {
-                                hit.collider.GetComponent<Bed>().SetAsPlayerSpawn();
-                                GameManager.Singleton.ResetDay();
-                            }
-                            else
-                            {
-                                hit.collider.GetComponent<Bed>().SetAsPlayerSpawn();
-                                Debug.Log("Can only sleep at night");
-                            }
+                            interactable.PerformAction();
                         }
                     }
                 }
