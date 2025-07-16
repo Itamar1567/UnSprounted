@@ -44,4 +44,9 @@ public class GameManager : MonoBehaviour
         Debug.Log(playerSpawnPoint);
         return playerSpawnPoint;
     }
+
+    public void QuitGame()
+    {
+        //Load Main Menu
+    }    
 }

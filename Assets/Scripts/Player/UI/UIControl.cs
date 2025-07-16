@@ -26,6 +26,7 @@ public class UIControl : MonoBehaviour
     [SerializeField] private TMP_Text hotbarText;
     [SerializeField] private GameObject hotbarSlotsHolder;
     [SerializeField] private GameObject tooltip;
+    [SerializeField] private GameObject HUD;
     [SerializeField] private GameObject[] windows;
     [SerializeField] private Sprite hotbarDefaultSlotSprite;
     [SerializeField] private Sprite hotbarHighlightedSlotSprite;
@@ -73,17 +74,6 @@ public class UIControl : MonoBehaviour
         {
             OpenWidow(0);
         }
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            if (IsWindowOpen())
-            {
-                CloseAllWindows();
-            }
-            else
-            {
-                //open pause menu
-            }
-        }
         if (scrollAction.action.ReadValue<Vector2>().y != 0)
         {
             int tempIncrementer = hotbarIncrementer;
@@ -109,6 +99,7 @@ public class UIControl : MonoBehaviour
         Debug.Log("Opening...");
         if (windows[windowId].activeSelf)
         {
+            ShowHUD();
             HideTooltip();
             GameObject window = windows[windowId];
             CloseActiveWindow(window);
@@ -116,6 +107,7 @@ public class UIControl : MonoBehaviour
         }
         else
         {
+            HideHUD();
             Time.timeScale = 0f;
             isGamePaused = true;
             windows[windowId].SetActive(true);
@@ -183,6 +175,16 @@ public class UIControl : MonoBehaviour
         isGamePaused = false;
         window.SetActive(false);
         Debug.Log(window.name);
+    }
+
+    private void ShowHUD()
+    {
+        HUD.gameObject.SetActive(true);
+    }
+
+    private void HideHUD()
+    {
+        HUD.gameObject.SetActive(false);
     }
 
     private void OnEnable()
