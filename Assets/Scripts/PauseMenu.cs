@@ -31,6 +31,6 @@ public class PauseMenu : MonoBehaviour
 
     public void Settings()
     {
-
+        UIControl.Singleton.OpenWidow(4);
     }
 }
