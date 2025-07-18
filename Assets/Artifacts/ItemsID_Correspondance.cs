@@ -25,7 +25,7 @@ public class ItemsID_Correspondance
  * 12: Coal
  * 13: Torch
  * 14: Bed
- * 
+ * 15: Wool
  * 
  * 
  * 

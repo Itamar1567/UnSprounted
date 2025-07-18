@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Settings : MonoBehaviour
+public class ControlsScreen : MonoBehaviour
 {
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,17 +14,8 @@ public class Settings : MonoBehaviour
         
     }
 
-    public void Controlls()
-    {
-        UIControl.Singleton.OpenWidow(5);
-    }
-    public void Sound()
-    {
-        UIControl.Singleton.OpenWidow(1);
-    }
     public void Return()
     {
-        UIControl.Singleton.OpenWidow(3);
+        UIControl.Singleton.OpenWidow(4);
     }
 }
-

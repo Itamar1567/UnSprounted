@@ -46,10 +46,7 @@ public class Crafting : MonoBehaviour
         RecipeList.Add(new Recipes { itemId = 10, itemName = "Stone Pickaxe", ingredients = "rockrockrockloglog" });
         RecipeList.Add(new Recipes { itemId = 11, itemName = "Iron Pickaxe", ingredients = "ironingotironingotironingotloglog" });
         RecipeList.Add(new Recipes { itemId = 13, itemName = "Torch", ingredients = "coallog" });
-
-
-
-
+        RecipeList.Add(new Recipes { itemId = 14, itemName = "Bed", ingredients = "woolwoolwoollogloglog" });
     }
 
     // Update is called once per frame

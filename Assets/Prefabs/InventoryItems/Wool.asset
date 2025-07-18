@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad93e1c51b633a04ea4c0df66938f1d8, type: 3}
+  m_Name: Wool
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -1800847564758328457, guid: 78454a7caf9d9fb4c9728d0fcace8895, type: 3}
+  itemTag: 0
+  itemName: Wool
+  itemID: 15
+  block: 0
+  interactable: 0
+  equipmentPrefab: {fileID: 0}
+  isWeapon: 0
+  damageAmount: 0
+  attackWaitTime: 0
+  attackRange: 1
+  itemMineLevel: 0
+  isTool: 0
+  toolType: 
+  energySource: 1
+  smeltTime: 3
+  healAmount: 0
+  illuminance: 0
