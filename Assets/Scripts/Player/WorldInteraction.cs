@@ -112,7 +112,7 @@ public class WorldInteraction : MonoBehaviour
         if (UIControl.Singleton.SelectedItemInHotbarSlot() != null && layerName == "Ground")
         {
             inventoryItemRef = UIControl.Singleton.SelectedItemInHotbarSlot();
-            if (inventoryItemRef.isBlock())
+            if (inventoryItemRef.IsBlock())
             {
                 foreach (Block block in BlocksList)
                 {

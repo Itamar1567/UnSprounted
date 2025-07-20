@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using Unity.VisualScripting;
 using TMPro;
-using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour, IPointerClickHandler
 {
@@ -31,15 +27,15 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     private int count
     {
         get => _count;
-        set 
+        set
         {
-            if(_count != value)
+            if (_count != value)
             {
                 _count = value;
                 IsItemCountBelowZero();
 
             }
-        
+
         }
     }
     private float smeltTime;
@@ -48,11 +44,15 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     private float attackRange;
     private float illuminance;
     private bool block;
-    private bool interactable;
+    private bool consumable;
     private bool energySource;
     private bool isWeapon;
+    private bool isShooter;
+
 
     private Image itemIcon;
+    private GameObject projectileType;
+    private GameObject itemGameObject;
 
 
 
@@ -65,7 +65,7 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     public void Initialize(Item item, InventorySlot parent)
     {
         //Debug.Log("Adada");
-        if(itemIcon == null)
+        if (itemIcon == null)
         {
             itemIcon = GetComponent<Image>();
         }
@@ -80,14 +80,16 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         itemMineLevel = item.GetMineLevel();
         attackWaitTime = item.GetAttackWaitTime();
         block = item.block;
-        interactable = item.interactable;
+        consumable = item.consumable;
         energySource = item.energySource;
         attackRange = item.GetAttackRange();
         isWeapon = item.isWeapon;
         toolType = item.toolType;
         illuminance = item.GetIlluminance();
+        isShooter = item.isShooter;
         smeltTime = item.GetSmeltTime();
-
+        projectileType = item.GetProjectileType();
+        itemGameObject = item.GetItemGameObject();
         SetText(count.ToString());
     }
     public InventoryItem InitializeOnHand(Item item)
@@ -103,12 +105,15 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
         attackWaitTime = item.GetAttackWaitTime();
         attackRange = item.GetAttackRange();
         block = item.block;
-        interactable = item.interactable;
+        consumable = item.consumable;
         energySource = item.energySource;
         smeltTime = item.GetSmeltTime();
         isWeapon = item.isWeapon;
         toolType = item.toolType;
         illuminance = item.GetIlluminance();
+        isShooter = item.isShooter;
+        projectileType = item.GetProjectileType();
+        itemGameObject = item.GetItemGameObject();
         SetText(count.ToString());
         return this;
     }
@@ -124,96 +129,60 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
                 case true: Inventory.Singleton.LeftClickCheck(this); break;
                 case false: Inventory.Singleton.SetCarriedItem(this); break;
 
-            }            
+            }
         }
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            switch(Inventory.Singleton.IsItemInHand())
+            switch (Inventory.Singleton.IsItemInHand())
             {
                 case true: Inventory.Singleton.AddToItemCount(this, 1); break;
                 case false: Inventory.Singleton.SpawnInventoryItemInHand(this); break;
             }
-            
+
         }
     }
-
-  
     public int GetItemID()
-    {
-        return itemID;
-    }
-
+    { return itemID; }
     public int GetHealAmount()
-    {
-        return healAmount;
-    }
-
+    { return healAmount; }
     public int GetDamageAmount()
-    {
-        return damageAmount;
-    }
-
+    { return damageAmount; }
     public int GetMineLevel()
-    {
-        return itemMineLevel;
-    }
-
+    { return itemMineLevel; }
     public float GetTimeToBreak()
-    {
-        return timeToBreak;
-    }
+    { return timeToBreak; }
     public int GetCount()
-    {
-        return count;
-    }
+    { return count; }
     public int GetVirtualCount()
-    {
-        return virtualCount;
-    }
+    { return virtualCount; }
     public float GetTimeBetweenAttacks()
-    {
-        return attackWaitTime;
-    }
+    { return attackWaitTime; }
     public float GetSmeltTime()
-    {
-        return smeltTime;
-    }
-    public float GetAttackRange() 
-    {
-        return attackRange;
-    }
+    { return smeltTime; }
+    public float GetAttackRange()
+    { return attackRange; }
     public float GetIlluminance()
-    {
-        return illuminance;
-    }
+    { return illuminance; }
     public string GetItemName()
-    {
-        return itemName;
-    }
+    { return itemName; }
     public string GetToolType()
-    {
-        return toolType;
-    }
-    public bool isBlock()
-    {
-        return block;
-    }
-    public bool isInteractable()
-    {
-        return interactable;
-    }
+    { return toolType; }
+    public bool IsBlock()
+    { return block; }
+    public bool IsConsumable() { return consumable; }
     //Returns true if item is an energy source and false if it is not
-    public bool IsEnergySource()
-    {
-        return energySource;
-    }
+    public bool IsEnergySource() { return energySource; }
 
     //Returns true if item is a weapon/tool and false for all else
-    public bool IsWeapon()
-    {
-        return isWeapon;
-    }
+    public bool IsWeapon() { return isWeapon; }
+    //Returns true if item is a shooter and false for all else
+    public bool IsShooter() { return isShooter; }
+    public GameObject GetProjectileType() { if (projectileType != null) { return projectileType; } else { return null; } }
 
+    public GameObject GetItemGameObject()
+    {
+        if (itemGameObject != null) { return itemGameObject; } else { return null; }
+    }
     //increase or decrease count
     public void AddRemoveCount(int num)
     {
@@ -227,26 +196,26 @@ public class InventoryItem : MonoBehaviour, IPointerClickHandler
     //Destroyed the gameobject if item count is below zero
     public void IsItemCountBelowZero()
     {
-        if (count <= 0) 
+        if (count <= 0)
         {
             Destroy(gameObject);
         }
     }
     public void AddVirtualCount(int amount)
     {
-        virtualCount += amount; 
+        virtualCount += amount;
     }
 
     public void CallShowTooltip()
     {
-        if(UIControl.Singleton != null)
+        if (UIControl.Singleton != null)
         {
             UIControl.Singleton.ShowTooltip(itemName);
         }
     }
     public void CallHideTooltip()
     {
-        if(UIControl.Singleton != null) 
+        if (UIControl.Singleton != null)
         {
             UIControl.Singleton.HideTooltip();
         }

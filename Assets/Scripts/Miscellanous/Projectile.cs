@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private GameObject target;
     private GameObject shotBy;
     private Vector2 direction = Vector2.zero;
+    private Quaternion arbitraryRotation = Quaternion.identity;
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
@@ -38,8 +39,10 @@ public class Projectile : MonoBehaviour
     public virtual void SetSpeed(int s) { speed = s; }
     public virtual void SetTarget(GameObject t) { target = t; }
     public virtual void SetShotBy(GameObject s) { shotBy = s; }
+    public virtual void SetArbitraryRotation(Quaternion r) { arbitraryRotation = r; }
 
     public virtual Vector2 GetDirection() { return direction; }
+    public virtual Quaternion GetArbitraryRotation() { return arbitraryRotation; }
 
     public virtual float GetPushForce() { return pushForce; }
 
@@ -74,8 +77,13 @@ public class Projectile : MonoBehaviour
         {
             Debug.Log("sprite orientation called");
             Vector2 targetDirection = target.transform.position - transform.position;
-            float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg + 90;
+            float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        }
+        else
+        {
+            transform.rotation = GetArbitraryRotation();
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

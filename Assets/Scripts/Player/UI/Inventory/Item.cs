@@ -10,8 +10,8 @@ public class Item : ScriptableObject
     public string itemName;
     public int itemID;
     public bool block;
-    public bool interactable;
-    
+    public bool consumable;
+
 
     [Header("If the Item can be equipped")]
     public GameObject equipmentPrefab;
@@ -32,25 +32,28 @@ public class Item : ScriptableObject
     public bool energySource;
     [SerializeField] private float smeltTime = 0;
 
-    [Header("If the item is interactable")]
+    [Header("If the item is consumable")]
     [SerializeField] private int healAmount = 0;
 
     [Header("If the item imits light")]
-    [SerializeField] float illuminance = 0;
-
-
+    [SerializeField] private float illuminance = 0;
+    [Header("If the item shoot projectiles")]
+    [SerializeField] public bool isShooter;
+    [SerializeField] private GameObject projectile;
+    [Header("If the item can be held/bow")]
+    [SerializeField] private GameObject itemGameObject;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetItemID(int retrievedItemID)
@@ -94,6 +97,30 @@ public class Item : ScriptableObject
     {
         return illuminance;
     }
+    public GameObject GetProjectileType()
+    {
+        if (projectile != null)
+        {
+            return projectile;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public GameObject GetItemGameObject()
+    {
+        if (itemGameObject != null)
+        {
+            return itemGameObject;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
 
 
 }
