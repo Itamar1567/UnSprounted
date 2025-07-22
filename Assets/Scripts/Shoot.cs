@@ -30,6 +30,7 @@ public class Shoot : MonoBehaviour
             if (shootActionRef.action.WasPressedThisFrame() && UIControl.Singleton.SelectedItemInHotbarSlot().IsShooter())
             {
                 Shooter shooter = UIControl.Singleton.SelectedItemInHotbarSlot().GetItemGameObject().GetComponent<Shooter>();
+
                 if (shooter != null && shooterDictionary.TryGetValue(shooter.GetId(), out GameObject heldShooter))
                 {
                     shooterRef = heldShooter;

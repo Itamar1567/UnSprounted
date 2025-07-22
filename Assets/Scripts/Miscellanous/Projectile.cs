@@ -46,16 +46,16 @@ public class Projectile : MonoBehaviour
 
     public virtual float GetPushForce() { return pushForce; }
 
-    public virtual void PushTarget()
+    public virtual void PushHitObject(GameObject hit)
     {
-        if (target != null)
-        {
-            Rigidbody2D targetRigidBody = target.GetComponent<Rigidbody2D>();
-            if (targetRigidBody == null) { Debug.Log("Returned null"); return; }
-            Debug.Log("Entered");
-            Vector2 targetDirection = (target.transform.position - transform.position).normalized;
-            targetRigidBody.AddForce(targetDirection * pushForce, ForceMode2D.Impulse);
-        }
+
+
+        Rigidbody2D targetRigidBody = hit.GetComponent<Rigidbody2D>();
+        if (targetRigidBody == null) { Debug.Log("Returned null"); return; }
+        Debug.Log("Entered");
+        Vector2 targetDirection = (hit.transform.position - transform.position).normalized;
+        targetRigidBody.AddForce(targetDirection * pushForce, ForceMode2D.Impulse);
+
     }
     protected virtual void DamageTarget(Collider2D collidedWith)
     {
@@ -63,10 +63,7 @@ public class Projectile : MonoBehaviour
         {
             if (comp is Damageable damageable)
             {
-                if (comp.CompareTag("Player"))
-                {
-                    damageable.TakeDamage(damage);
-                }
+                damageable.TakeDamage(damage);
             }
         }
     }
@@ -83,7 +80,7 @@ public class Projectile : MonoBehaviour
         else
         {
             transform.rotation = GetArbitraryRotation();
-            
+
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -93,7 +90,7 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject != shotBy && collision.gameObject.layer != 6)
         {
             //Debug.Log(collision.gameObject);
-            PushTarget();
+            PushHitObject(collision.gameObject);
             DamageTarget(collision);
             Destroy(gameObject);
         }
