@@ -26,40 +26,17 @@ public class SceneController : MonoBehaviour
     {
 
     }
-
-    //Function to load the last level the player was present in
-    public void LoadLast_Level()
-    {
-
-    }
-    public void LoadIntro_Level()
-    {
-
-    }
     //This function is created to easly debug newly added levels
-    public void Load_Level(int index){
-        PrevLevIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(index);
-    }
-    public void LoadSandBox_Level()
+    
+    public void SetPrevSceneIndex(int index)
     {
-        SceneManager.LoadScene(0);
+        PrevLevIndex = index;
     }
-    public void LoadMain_Level()
+    public int GetPrevSceneIndex()
     {
-        SceneManager.LoadScene(1);
+        return PrevLevIndex;
     }
-    public void LoadSettings_Level()
-    {
-        SceneManager.LoadScene(2);
-    }
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-    public void LoadPrevLevel()
-    {
+   
 
-    }
 
 }
