@@ -27,5 +27,9 @@ public class Settings : MonoBehaviour
     {
         UIControl.Singleton.OpenWidow(3);
     }
+    public void Recipes()
+    {
+        UIControl.Singleton.OpenWidow(6);
+    }
 }
 

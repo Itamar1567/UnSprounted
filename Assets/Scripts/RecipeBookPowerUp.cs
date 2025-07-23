@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public class ControlsScreen : MonoBehaviour
+public class RecipeBookPowerUp : PowerUpPickUp
 {
+
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,8 +17,8 @@ public class ControlsScreen : MonoBehaviour
         
     }
 
-    public void Return()
+    protected override void GivePower()
     {
-        UIControl.Singleton.OpenWidow(UIControl.Singleton.GetPrevOpenWindow());
+
     }
 }

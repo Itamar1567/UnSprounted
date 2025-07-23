@@ -1,7 +1,12 @@
 using UnityEngine;
 
-public class ControlsScreen : MonoBehaviour
+public class PowerUpPickUp : MonoBehaviour
 {
+
+    protected virtual void GivePower()
+    {
+
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,8 +19,8 @@ public class ControlsScreen : MonoBehaviour
         
     }
 
-    public void Return()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        UIControl.Singleton.OpenWidow(UIControl.Singleton.GetPrevOpenWindow());
+        GivePower();
     }
 }

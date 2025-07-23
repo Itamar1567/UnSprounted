@@ -9,6 +9,9 @@ public class UIControl : MonoBehaviour
 
     public static UIControl Singleton;
     private bool isGamePaused = false;
+
+    private int PrevOpenWindow = 0;
+    private int CurrentOpenWindow = 0;
     private int hotbarIncrementer
     {
         get => _hotbarIncrementer;
@@ -110,7 +113,11 @@ public class UIControl : MonoBehaviour
             HideHUD();
             Time.timeScale = 0f;
             isGamePaused = true;
+            //Set prev open window
+            SetPrevOpenWindow();
             windows[windowId].SetActive(true);
+            //Set current open window
+            SetCurrOpenWindow(windowId);
             CloseAllOtherWindows(windowId);
         }
         if (windowId == 0 || windowId == 1 || windowId == 2)
@@ -168,6 +175,29 @@ public class UIControl : MonoBehaviour
         isGamePaused = false;
         Time.timeScale = 1.0f;
 
+    }
+
+    private void SetPrevOpenWindow()
+    {
+        for(int i = 0; i < windows.Length; i++)
+        {
+            if (windows[i].activeSelf) 
+            {
+                PrevOpenWindow = i;
+            }
+        }
+    }
+    private void SetCurrOpenWindow(int window)
+    {
+        CurrentOpenWindow = window;
+    }
+    public int GetPrevOpenWindow()
+    {
+        return PrevOpenWindow;
+    }
+    public int GetCurrOpenWindow()
+    {
+        return CurrentOpenWindow;
     }
 
     private void CloseActiveWindow(GameObject window)

@@ -4,10 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    public static SceneController Singleton;
+    private int PrevLevIndex = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        if(Singleton == null)
+        {
+            Singleton = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
     // Update is called once per frame
@@ -26,7 +37,8 @@ public class SceneController : MonoBehaviour
 
     }
     //This function is created to easly debug newly added levels
-    public void DebugLoad_Level(int index){
+    public void Load_Level(int index){
+        PrevLevIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(index);
     }
     public void LoadSandBox_Level()
@@ -44,6 +56,10 @@ public class SceneController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+    public void LoadPrevLevel()
+    {
+
     }
 
 }
