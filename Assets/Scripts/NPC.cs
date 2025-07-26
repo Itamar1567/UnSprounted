@@ -166,7 +166,7 @@ public class NPC : MonoBehaviour, Damageable
 
             if (hit != null)
             {
-                Debug.Log("Walkable point at: " + randomPoint);
+                //Debug.Log("Walkable point at: " + randomPoint);
                 return randomPoint;
             }
         }

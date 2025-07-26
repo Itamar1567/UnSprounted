@@ -1,30 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class Skeleton : Enemy
+public class SpaceMan : Enemy
 {
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected override void Start()
+    public void Update()
     {
-        base.Start();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        ChangeShootPointPosition();
-        if (ai.reachedDestination && canShoot == true && runningShootAnimation == false)
-        {
-            runningShootAnimation = true;
-            animator.SetTrigger("Attack");
-        }
         MoveAnimations();
         Chase();
-    }
-    public override void PerformShoot()
-    {
-        base.Shoot();
+
+        if (ai.reachedDestination && canShoot)
+        {
+            animator.SetTrigger("Attack");
+        }
+
     }
     public override void TakeDamage(int damage)
     {
@@ -56,10 +45,5 @@ public class Skeleton : Enemy
     protected override void PushTarget()
     {
         base.PushTarget();
-    }
-
-    protected override void ChangeShootPointPosition()
-    {
-        base.ChangeShootPointPosition();
     }
 }

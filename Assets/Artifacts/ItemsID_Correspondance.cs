@@ -27,7 +27,8 @@ public class ItemsID_Correspondance
  * 14: Bed
  * 15: Wool
  * 16: Bow
- * 
+ * 17: String
+ * 18: Arrow
  * 
  * 
  * 

@@ -4066,6 +4066,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2c9fa64e48a5d0b40b6fdd5f79ca09f3, type: 2}
   - {fileID: 11400000, guid: b1d2b0f75efffb24fa95916c8c92e024, type: 2}
   - {fileID: 11400000, guid: e4c07fbf3d10edc4bb5781f4221cb259, type: 2}
+  - {fileID: 11400000, guid: 703c4342c51249b45b9b2d7ddf823466, type: 2}
+  - {fileID: 11400000, guid: 28e3dd0c5df0b59479d6a5fafb5ee6bf, type: 2}
+  - {fileID: 11400000, guid: 0884d739977dee348ac1d0240237d429, type: 2}
+  - {fileID: 11400000, guid: fb0b8bc1f68e77942ab809dabde420b4, type: 2}
   mockItemForNullCases: {fileID: 5903593512812069133, guid: 6851edf957479474b90a440a818626c2, type: 3}
   inventoryCraftingResaultSlot: {fileID: 2865685508783745921}
   inventorySlots:
