@@ -1,6 +1,6 @@
-# Unsprouted
+# UnSprouted
 
-**Unsprouted** is a 2D top-down survival game, heavily inspired by Minecraft.  
+**UnSprouted** is a 2D top-down survival game, heavily inspired by Minecraft.  
 In this game, the player breaks tiles such as trees, rocks, and iron to gather resources and craft items.  
 These items can then be used to build a base, explore dangerous dungeons, and ultimately defeat the main boss.
 
@@ -25,6 +25,10 @@ These items can then be used to build a base, explore dangerous dungeons, and ul
 - C#
 - GIMP (for sprites and textures)
 
+## Preview
+Click the image below for a quick early preview of the game:
+
+[![Game Preview](https://img.youtube.com/vi/bZa4dUQJPr4/0.jpg)](https://www.youtube.com/watch?v=bZa4dUQJPr4)
 ## How to Run
 
 ⚠️ The game is currently under development and not fully ready for release.  
