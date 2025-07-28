@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, Damageable
 {
-    [SerializeField] protected int maxHealth = 100;
-    [SerializeField] protected int health = 100;
+    [Header("Enemy Stats")]
     [SerializeField] protected int damage = 15;
     [SerializeField] protected int pushForce = 50;
     [SerializeField] protected float attackWaitTime = 1f;
     [SerializeField] protected float chaseDistance = 5f;
+    [SerializeField] protected int maxHealth = 100;
+    [SerializeField] protected int _health;
+    protected int health
+    {
+        get => _health;
+        set
+        {
 
-    protected bool canAttack = true;
-    protected Animator animator;
-    protected AIPath ai;
-    protected AIDestinationSetter destinationSetter;
+            if (_health != value)
+            {
+                _health = value;
+                Debug.Log("called");
+                if (value < maxHealth / 2 && enteredHalfHealthPoint == false)
+                { 
+                    ReachedHalfHealth();
+                }
+            }
+
+        }
+    }
+
+
 
     [Header("If the enemy shoots")]
     [SerializeField] protected bool EnemyShoots = false;
@@ -26,16 +42,31 @@ public class Enemy : MonoBehaviour, Damageable
     protected bool canShoot = true;
     private int currentProjectiles;
     protected bool runningShootAnimation = false;
+    protected bool canAttack = true;
+
+    [Header("Mini Boss Section")]
+    private bool enteredHalfHealthPoint = false;
+
+
+    //Components
+    protected SpriteRenderer spriteRenderer;
+    protected Animator animator;
+    protected AIPath ai;
+    protected AIDestinationSetter destinationSetter;
+
+    
 
     
 
 
     protected virtual void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         ai = GetComponent<AIPath>();
         destinationSetter = GetComponent<AIDestinationSetter>();
 
+        if (spriteRenderer == null) { Debug.Log("Could not find 'Sprite Renderer Component'"); }
         if (animator == null) { Debug.Log("Could not find 'Animator Component'"); }
         if (ai == null) { Debug.Log("Could not find 'AIPath Component'"); }
         if (destinationSetter == null) { Debug.Log("Could not find 'AIDestinationSetter Component'"); }
@@ -70,6 +101,7 @@ public class Enemy : MonoBehaviour, Damageable
         }
     }
 
+    #region Attack/Shoot
     protected virtual void Attack()
     {
         if (canAttack)
@@ -189,6 +221,9 @@ public class Enemy : MonoBehaviour, Damageable
         runningShootAnimation = false;
         canShoot = true;
     }
+
+    #endregion
+    #region Movement
     protected virtual void MoveAnimations()
     {
         //Debug.Log(ai.velocity);
@@ -216,11 +251,20 @@ public class Enemy : MonoBehaviour, Damageable
             }
         }
     }
+    #endregion 
+    #region Setters/Getters
     public virtual void SetHealth(int h) { health = h; }
     public virtual void SetTarget(Transform t) { destinationSetter.target = t; }
     public virtual int GetHealth() { return health; }
 
     public virtual Transform GetTarget() { return destinationSetter.target;}
+    #endregion
+    #region Mini Bosses
+    protected virtual void ReachedHalfHealth()
+    {
+        enteredHalfHealthPoint = true;
+    }
+    #endregion
 
-    
+
 }

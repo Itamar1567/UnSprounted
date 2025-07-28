@@ -285,7 +285,7 @@ MonoBehaviour:
   pushForce: 50
   attackWaitTime: 1
   chaseDistance: 5
-  EnemyShoots: 0
+  EnemyShoots: 1
   shootPoint: {fileID: 8841903592044595818}
   projectile: {fileID: 613051862833442684, guid: 20a3b49cf921fc947a77880068fb5874, type: 3}
   quiver: {fileID: 3177238651408468617}

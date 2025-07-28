@@ -46,4 +46,11 @@ public class SpaceMan : Enemy
     {
         base.PushTarget();
     }
+    protected override void ReachedHalfHealth()
+    {
+        base.ReachedHalfHealth();
+        shootWaitTime = 0.5f;
+        spriteRenderer.color = Color.red;
+        
+    }
 }
