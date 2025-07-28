@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour, Damageable
         Debug.LogWarning("Shoot() was called!\n" + System.Environment.StackTrace);
         StartCoroutine(CanShootTimer());
         Vector2 targetDir = (destinationSetter.target.position - ai.position).normalized;
-        Vector2 snappedDirection = new Vector2(Mathf.Round(targetDir.x), Mathf.Round(targetDir.y));
+        //Vector2 snappedDirection = new Vector2(Mathf.Round(targetDir.x), Mathf.Round(targetDir.y));
         //Debug.Log(targetDir);
         if(currentProjectiles >= 0)
         {
@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour, Damageable
             if (shotProjectile != null)
             {
                 shotProjectile.SetTarget(destinationSetter.target.gameObject);
-                shotProjectile.SetDirection(snappedDirection);
+                shotProjectile.SetDirection(targetDir);
                 shotProjectile.SetShotBy(gameObject);
                 shotProjectile.FlyToTarget();
                 currentProjectiles--;
@@ -148,10 +148,18 @@ public class Enemy : MonoBehaviour, Damageable
     protected virtual void ChangeShootPointPosition()
     {
         Vector2 faceDirection = (destinationSetter.target.position - ai.position).normalized;
+        if(Mathf.Abs(faceDirection.x) > Mathf.Abs(faceDirection.y))
+        {
+            faceDirection = new Vector2(Mathf.Round(faceDirection.x), 0);
+        }
+        else if(Mathf.Abs(faceDirection.y) > Mathf.Abs(faceDirection.x))
+        {
+            faceDirection = new Vector2(0, Mathf.Round(faceDirection.y));
+        }
         Vector2 snappedDirection = new Vector2(Mathf.Round(faceDirection.x), Mathf.Round(faceDirection.y));
         //Debug.Log(snappedDirection);
-        animator.SetFloat("facingX", snappedDirection.x);
-        animator.SetFloat("facingY", snappedDirection.y);
+        animator.SetFloat("facingX", faceDirection.x);
+        animator.SetFloat("facingY", faceDirection.y);
         shootPoint.transform.localPosition = snappedDirection * 0.5f;
     }
     

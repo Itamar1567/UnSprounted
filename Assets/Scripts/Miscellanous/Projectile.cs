@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -7,6 +8,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private int damage = 15;
     [SerializeField] private int speed = 100;
     [SerializeField] private GameObject target;
+    private float time_to_reset = 5f;
     private GameObject shotBy;
     private Transform resetPointParent;
     private Rigidbody2D rb;
@@ -32,18 +34,16 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.activeSelf == false)
-        {
-            transform.position = resetPointParent.position;
-        }
+
     }
 
     public void FlyToTarget()
     {
         gameObject.SetActive(true);
+        StartCoroutine(ResetProjectileTimer());
         CorrectSpriteOrientation();
         Debug.Log(GetDirection());
-        Debug.LogWarning("Attack() was called!\n" + System.Environment.StackTrace);
+        Debug.LogWarning("Projectile was shot!\n" + System.Environment.StackTrace);
         rb.linearVelocity = GetDirection() * speed;
     }
     public virtual void SetPushForce(float p) { pushForce = p; }
@@ -108,5 +108,11 @@ public class Projectile : MonoBehaviour
             DamageTarget(collision);
             ResetProjectile();
         }
+    }
+
+    private IEnumerator ResetProjectileTimer()
+    {
+        yield return new WaitForSeconds(time_to_reset);
+        ResetProjectile();
     }
 }
